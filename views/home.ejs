@@ -1,0 +1,39 @@
+<%- include('header.ejs') %>
+<%- include('homeContent.ejs') %>
+<%- include('footer.ejs') %>
+<script>
+    function show1(galeryNr) {
+      document.getElementById("galery"+ galeryNr).removeAttribute("style","display:none"); 
+    }
+    function hide(galeryNr) {
+      document.getElementById("galery"+ galeryNr).setAttribute("style", "display:none"); 
+    }
+    function hideActive(linkNr) {
+      document.getElementById("l"  + linkNr).removeAttribute("class","active"); 
+    }
+    function showActive(linkNr) {
+      document.getElementById("l"+ linkNr).setAttribute("class", "active"); 
+    }
+    </script>
+
+    <script>
+
+
+    function reply_click(clicked_id)
+  {
+    const Url = "http://localhost:3000/"; 
+    location.assign(Url+clicked_id);  
+  }
+
+
+    //     const Url = "http://localhost:3000/girlprofile/";   
+    //     $('a.main-button').click(function() { 
+    //      var girlId = $(this).attr('id');
+    //    location.assign(Url+girlId);
+    //    return false;
+         
+// });
+    </script>
+</body>
+
+</html>
