@@ -7,20 +7,20 @@
 				<!-- start: анкеты -->
 				<div class="col-md-12" id="galery0">
 					<div class="row">
-
+						<% allGirls.forEach(function(entry) {%>
 						<div class="col-sm-4 col-md-4 col-lg-3 wow zoomIn" data-wow-delay="0">
 							<div class="gallery-icon">
-								<img src="img/girl.jpg" alt="img">
+								<img src=<%=entry.profilePhotoPath%> alt="img">
 								<div class="gallery-caption">
-									<strong>Veronica (1441)</strong>
-									<p>21 years</p>
-									<p>Dance teacher</p>
-									<a href="#" id="g1" class="main-button">View Profile</a>
+									<strong><%=entry.name%></strong>
+									<p><%=entry.years%> years</p>
+									<p><%=entry.hobby%></p>
+									<a href="#" id= <%=entry.id%> onclick="reply_click(this.id); return false;"  class="main-button">View Profile</a>
 								</div>
 							</div>
 						</div>
-						
-						<div class="col-sm-4 col-md-4 col-lg-3 wow zoomIn" data-wow-delay=".2s">
+						<%});%>
+						<!-- <div class="col-sm-4 col-md-4 col-lg-3 wow zoomIn" data-wow-delay=".2s">
 							<div class="gallery-icon">
 								<img src="img/girl.jpg" alt="img">
 								<div class="gallery-caption">
@@ -150,7 +150,7 @@
 									<a href="#" class="main-button">View Profile</a>
 								</div>
 							</div>
-						</div>
+						</div> -->
 
 					</div>
 				</div>
