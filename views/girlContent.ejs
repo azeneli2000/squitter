@@ -5,7 +5,7 @@
 <!--[if (gte IE 9)|!(IE)]><!--><html lang="ru"> <!--<![endif]-->
 
 <head>
-
+	
 	<meta charset="utf-8">
 	<titl>Squitter</title>
 	<!-- SEO -->
@@ -35,7 +35,44 @@
 
 <body class="main-theme">
 	<header class="header">
-
+		<div id="modal-1" class="modal-window mfp-hide">
+			<button title="Close (Esc)" type="button" class="mfp-close">×</button>
+			<h1 class="c-red t-upper">Add a review</h1>
+	
+			<form class="comment-form" id="form" method="POST" >
+				<div class="form-group t-left">
+					<p>Name <span class="c-red">*</span></p>
+						<input type="text" id="name" class="form-control" data-validation="required" data-validation-error-msg="Поле обязательное для заполнения">
+				</div>
+				<div class="form-group t-left">
+					<p>E-mail <span class="c-red">*</span> <span class="prompt">(will not be published)</span></p>
+					<input type="email" id="email" class="form-control" data-validation="email" data-validation-error-msg="Поле обязательное для заполнения">
+				</div>
+				<div class="form-group t-left">
+					<p>Rating</p>
+					<div class="rating-box">
+						<div class="rating"></div>
+						<div class="masks">
+							<div  onclick="star('1star')" class="rating-mask item-1"></div>
+							<div  onclick="star('2star')" class="rating-mask item-2"></div>
+							<div  onclick="star('3star')" class="rating-mask item-3"></div>
+							<div  onclick="star('4star')" class="rating-mask item-4"></div>
+							<div onclick="star('5star')" class="rating-mask item-5"></div>
+							<div id="stars" style="display: none;" >sas</div>
+							<div id="girlID" style="display: none;" ><%=json.id%> </div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group t-left">
+					<p>Feedback</p>
+					<textarea class="form-control" id = "feedback" rows="10" data-validation="required" data-validation-error-msg="Поле обязательное для заполнения"></textarea>
+				</div>
+				<div class="form-group t-center">
+					<button type="submit" class="main-button-2">Submit</button>
+				</div>
+			</form>
+	
+		</div>
 		<!-- start: top-line -->
 		<div class="top-line">
 			<div class="container">
@@ -128,7 +165,7 @@
 							<div class="row">
 
 								<div class="col-sm-7 col-md-6 col-md-offset-1 col-lg-7 col-lg-offset-0 profile-img wow fadeInLeft">
-									<img src="img/profile-girl.jpg" alt="">
+									<img src="uploads/<%=json.id%>-profile-detail.jpg" alt="">
 								</div>
 								
 								<div class="col-sm-5 col-md-4 col-lg-5 profile-descr t-left">
@@ -140,13 +177,13 @@
 									<div class="body-info wow fadeInUp" data-wow-delay=".4s">
 										<p>Height: <%=json.height%></p>
 										<p>Weight: <%=json.weight%></p>
-										<p>Chest: <%=json.chest%></p>
+										<p>Chest: <%=json.cest%></p>
 									</div>
 									<div class="price wow fadeInUp" data-wow-delay=".8s">
 										<p class="block-title">Price:</p>
-										<p>Hour: <%=json.priceHour%>$</p>
-										<p>Night:  <%=json.priceNight%>$</p>
-										<p>Day:  <%=json.priceDay%>$</p>
+										<p>Hour: <%=json.pricehour%>$</p>
+										<p>Night:  <%=json.pricenight%>$</p>
+										<p>Day:  <%=json.priceday%>$</p>
 									</div>
 								</div>
 
@@ -158,14 +195,14 @@
 								<!-- start: profile-about -->
 								<div class="col-sm-12 col-md-12 block-default profile-about t-left">
 									<p class="block-title">About me</p>
-									<p class="simple-text"> <%=json.aboutMe%></p>
+									<p class="simple-text"> <%=json.about%></p>
 
 									<!-- start: gallery -->
 									<div class="col-md-12 gallery">
 										<div class="row">
-											<div class=" col-xs-6 col-sm-4 col-md-4 wow zoomIn" data-wow-delay="0"><a href="img/profile-girl2.jpg"><img src="img/profile-girl2.jpg" alt="img"></a></div>
-											<div class=" col-xs-6 col-sm-4 col-md-4 wow zoomIn" data-wow-delay=".2s"><a href="img/profile-girl3.jpg"><img src="img/profile-girl3.jpg" alt="img"></a></div>
-											<div class=" col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-0 col-md-4 wow zoomIn" data-wow-delay=".4s"><a href="img/profile-girl4.jpg"><img src="img/profile-girl4.jpg" alt="img"></a></div>
+											<div class=" col-xs-6 col-sm-4 col-md-4 wow zoomIn" data-wow-delay="0"><a href="uploads/<%=json.id%>-photo1.jpg"><img src="uploads/<%=json.id%>-photo1-thumb.jpg" alt="img"></a></div>
+											<div class=" col-xs-6 col-sm-4 col-md-4 wow zoomIn" data-wow-delay=".2s"><a href="uploads/<%=json.id%>-photo2.jpg"><img src="uploads/<%=json.id%>-photo2-thumb.jpg" alt="img"></a></div>
+											<div class=" col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-0 col-md-4 wow zoomIn" data-wow-delay=".4s"><a href="uploads/<%=json.id%>-photo3.jpg"><img src="uploads/<%=json.id%>-photo3-thumb.jpg" alt="img"></a></div>
 										</div>
 									</div>
 									<!-- end: gallery -->
@@ -175,28 +212,30 @@
 								
 								<!-- start: profile-reviews -->
 								<div class="col-sm-12 col-md-12 block-default profile-comments t-left">
-									<div class="block-title">reviews (2)
+
+									<div class="block-title">reviews 	(<%=json.reviews.length%>)
 										<div class="rating-box">
 											<div class="rating rating-3_5"></div>
 										</div>
 									</div>
+									<% json.reviews.forEach(function(entry) {%>
 
 									<div class="comment wow fadeInLeft">
-										<h3>Имя</h3>
+										<h3><%=entry.name%></h3>
 										<p class="simple-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum nisi placeat soluta dolorem ut ea quis dignissimos laboriosam praesentium beatae! Sunt iusto officia corrupti fugit deleniti accusantium nemo vero, natus culpa animi. Laudantium error similique, officiis, nulla aliquid iure doloribus facilis aut eveniet dolorum sint ut optio omnis aspernatur libero!</p>
 										<div class="rating-box">
 											<div class="rating rating-3"></div>
 										</div>
 									</div>
 
-									<div class="comment wow fadeInLeft">
+									<!-- <div class="comment wow fadeInLeft">
 										<h3>Имя</h3>
 										<p class="simple-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum repellat nemo debitis reiciendis dolorum aliquid, consectetur nostrum! Quis repudiandae, beatae id quaerat ullam iusto sint facere repellendus, laudantium ipsa suscipit.</p>
 										<div class="rating-box">
 											<div class="rating rating-4"></div>
 										</div>
-									</div>
-
+									</div> -->
+									<%});%>
 
 									<a href="#modal-1" class="main-button-2 open-modal">Add a review</a>
 
@@ -226,20 +265,22 @@
 					<!-- start: gallery -->
 					<div class="col-md-12">
 						<div class="row">
+							<% json.similarGirls.forEach(function(e) {%>
 
 							<div class="col-sm-4 col-md-4 col-lg-3 wow zoomIn" data-wow-delay="0">
 								<div class="gallery-icon">
-									<img src="img/girl.jpg" alt="img">
+									<img src="uploads/<%=e.id%>-profile.jpg" alt="img">
 									<div class="gallery-caption">
-										<strong>Вероника (1441)</strong>
-										<p>21 год</p>
-										<p>Преподаватель танцев</p>
-										<a href="#" class="main-button">смотреть анкету</a>
+										<strong><%=e.name%></strong>
+								    	<p><%=e.years%> years</p>
+										<p><%=e.hobby%></p>
+										<a href="#" id= <%=e.id%> onclick="reply_click(this.id); return false;"  class="main-button">View Profile</a>
 									</div>
 								</div>
 							</div>
+							<%});%>
 
-							<div class="col-sm-4 col-md-4 col-lg-3 wow zoomIn" data-wow-delay=".2s">
+							<!-- <div class="col-sm-4 col-md-4 col-lg-3 wow zoomIn" data-wow-delay=".2s">
 								<div class="gallery-icon">
 									<img src="img/girl.jpg" alt="img">
 									<div class="gallery-caption">
@@ -249,9 +290,9 @@
 										<a href="#" class="main-button">смотреть анкету</a>
 									</div>
 								</div>
-							</div>
+							</div> -->
 
-							<div class="col-sm-4 col-md-4 col-lg-3 wow zoomIn" data-wow-delay=".4s">
+							<!-- <div class="col-sm-4 col-md-4 col-lg-3 wow zoomIn" data-wow-delay=".4s">
 								<div class="gallery-icon">
 									<img src="img/girl.jpg" alt="img">
 									<div class="gallery-caption">
@@ -261,9 +302,9 @@
 										<a href="#" class="main-button">смотреть анкету</a>
 									</div>
 								</div>
-							</div>
+							</div> -->
 
-							<div class="col-sm-4 col-md-4 col-lg-3 wow zoomIn" data-wow-delay=".6s">
+							<!-- <div class="col-sm-4 col-md-4 col-lg-3 wow zoomIn" data-wow-delay=".6s">
 								<div class="gallery-icon">
 									<img src="img/girl.jpg" alt="img">
 									<div class="gallery-caption">
@@ -273,7 +314,7 @@
 										<a href="#" class="main-button">смотреть анкету</a>
 									</div>
 								</div>
-							</div>
+							</div> -->
 						</div>
 					</div>
 					<!-- end: gallery -->
@@ -380,6 +421,72 @@
 		{"src" : "js/common.js", "async" : false}
 		]};
 		!function(t,n,r){"use strict";var c=function(t){if("[object Array]"!==Object.prototype.toString.call(t))return!1;for(var r=0;r<t.length;r++){var c=n.createElement("script"),e=t[r];c.src=e.src,c.async=e.async,n.body.appendChild(c)}return!0};t.addEventListener?t.addEventListener("load",function(){c(r.scripts);},!1):t.attachEvent?t.attachEvent("onload",function(){c(r.scripts)}):t.onload=function(){c(r.scripts)}}(window,document,scr);
+	</script>
+	<script>
+
+document.getElementById('form').onsubmit = function(event){
+    event.preventDefault() // prevent form from posting without JS
+    var xhttp = new XMLHttpRequest(); // create new AJAX request
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+       // document.getElementById("status").innerHTML = 'sent'+this.responseText+ xhttp.status;
+      }else{
+      //  document.getElementById("status").innerHTML = xhttp.status ;
+      }
+	}
+	xhttp.open("POST", "http://localhost:3000/review")
+	var formData = new FormData();
+
+// var data = {
+// 	name : document.getElementById('name').value,
+// 	email : document.getElementById('email').value,
+// 	eedback = document.getElementById('feedback').value,
+// 	girlID = document.getElementById('girlID').innerHTML
+// };
+// data.name = document.getElementById('name').value;
+// data.email = document.getElementById('email').value;
+// data.stars = document.getElementById('stars').innerHTML;
+// data.feedback = document.getElementById('feedback').value;
+// data.girlID = document.getElementById('girlID').innerHTML;
+// console.log(data);
+
+	formData.append('name', document.getElementById('name').value);
+	formData.append('email', document.getElementById('email').value);
+	formData.append('stars', document.getElementById('stars').innerHTML);
+	formData.append('feedback', document.getElementById('feedback').value);
+	formData.append('girlID', document.getElementById('girlID').innerHTML);
+	// xhttp.upload.onprogress = function(evt)
+// {
+//     if (evt.lengthComputable)
+//     {
+//         var percentComplete = parseInt((evt.loaded / evt.total) * 100);
+//         console.log("Upload: " + percentComplete + "% complete")
+//     }
+// };
+// xhttp.setRequestHeader("Content-Type", "application/json");
+
+    xhttp.send(formData);
+  
+}
+		function star (divID){
+			let stars = document.getElementById("stars");
+			if(divID=="1star")
+			 stars.innerHTML = 1;
+			 if(divID=="2star")
+			 stars.innerHTML = 2;
+			 if(divID=="3star")
+			 stars.innerHTML = 3;
+			 if(divID=="4star")
+			 stars.innerHTML = 4;
+			 if(divID=="5star")
+			 stars.innerHTML = 5;
+		}
+
+		function reply_click(clicked_id)
+  {
+
+	location.assign("http://localhost:3000/"+clicked_id);  
+  }
 	</script>
 </body>
 </html>

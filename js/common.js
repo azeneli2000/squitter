@@ -1,6 +1,8 @@
 $(document).ready(function() {
     
-   //чат
+   
+
+   //chat
     $(".change-name").click(function () {
         $(".change-name-block").slideToggle();
     });
@@ -15,7 +17,7 @@ $(document).ready(function() {
 
    
 
-    //меню
+    //Menu
     $(".toggle-menu").click(function () {
         $(".main-menu").slideToggle();
         return false;
@@ -90,7 +92,7 @@ $(document).ready(function() {
         }
     });
 
-    //модалка
+    //Modal
 
         $('.open-modal').magnificPopup({
             type: 'inline',
@@ -101,6 +103,10 @@ $(document).ready(function() {
         $(document).on('click', '.close-modal', function (e) {
         e.preventDefault();
         $.magnificPopup.close();
+        })
+        $(document).on('submit',function (e) {
+            e.preventDefault();
+            $.magnificPopup.close();
     });
         
  
