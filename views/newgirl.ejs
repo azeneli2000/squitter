@@ -1,0 +1,234 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title> Adding new girl</title>
+	<!-- Meta tag Keywords -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8">
+	<meta name="keywords"
+		content=" Photography Application form Widget a Flat Responsive Widget,Login form widgets, Sign up Web forms , Login signup Responsive web form,Flat Pricing table,Flat Drop downs,Registration Forms,News letter Forms,Elements" />
+	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+function hideURLbar(){ window.scrollTo(0,1); } </script>
+	<!-- Meta tag Keywords -->
+	<link rel="stylesheet" href="/css/styleNewGirl.css" type="text/css" media="all" /><!-- Style-CSS -->
+	<!-- <link href="//fonts.googleapis.com/css?family=Josefin+Sans:300,400,600,700" rel="stylesheet">
+	<link href="//fonts.googleapis.com/css?family=Josefin+Sans:300,400,600,700" rel="stylesheet">
+	
+	
+	<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.8.17.custom.min.js"></script> -->
+	
+</head>
+
+<body>
+	<section class="agile-volt">
+		<div class="agile-voltheader">
+	
+		</div>
+		<div class="agile-voltsub">
+			<h2>Application form</h2>
+			<form id="form">
+				<div class="agile-name">
+					<p>Name :</p>
+					<input type="text" name="username" placeholder="" required="" autofocus id="name">
+				</div>
+				<div class="agile-name">
+					<p>Years :</p>
+					<input type="text" name="years" placeholder="" required="" autofocus id="years">
+				</div>
+
+				<div class="agile-name">
+					<p>Hobby :</p>
+					<input type="number" name="hobby" placeholder="" required="" id="hobby">
+				</div>
+
+				
+				<div class="agile-name">
+					<p>Height :</p>
+					<input type="number" name="height" placeholder="" required=""id="height">
+				</div>
+				<div class="agile-name">
+					<p>Weight :</p>
+					<input type="number" name="weight" placeholder="" required=""id="weight">
+				</div>
+				<div class="agile-name">
+					<p>Cest :</p>
+					<input type="number" name="cest" placeholder="" required="" id="cest">
+				</div>
+				<div class="agile-name">
+					<p>Price Night :</p>
+					<input type="number" name="pricenight" placeholder="" required="" id="pricenight">
+				</div>	<div class="agile-name">
+					<p>Price Hour :</p>
+					<input type="number" name="pricehour" placeholder="" required="" id="pricehour">
+				</div>	<div class="agile-name">
+					<p>Price Day :</p>
+					<input type="number" name="priceday" placeholder="" required="" id="priceday">
+				</div>
+
+				<div class="agile-name">
+					<p>Username :</p>
+					<input type="number" name="username" placeholder="" required="" id="username">
+				</div>
+				<div class="agile-name">
+					<p>Password :</p>
+					<input type="password" name="password" placeholder="" required="" id="password">
+				</div>
+
+				<div class="agile-name">
+					<p> Repeat Password :</p>
+					<input type="password" name="repeatpassword" placeholder="" required="">
+				</div>
+
+				<div class="clear"></div>
+				<div class="agile-city">
+					<p>City :</p>
+					<input type="text" name="city" placeholder="" min="1" max="12"  id="city"/>
+				</div>
+
+				<div class="agile-country">
+					<p>State</p>
+					<select id="country" >
+						<option value="country"></option>
+						<option value="country1">State-1</option>
+						<option value="country2">State-2</option>
+					</select>
+				</div>
+
+				<div class="agile-pin">
+					<p>Zipcode :</p>
+					<input type="tel" name="zipcode" placeholder=""  id="zipcode"/>
+				</div>
+				<div class="clear"></div>
+				<div class="agile-name">
+					<p>Phone number :</p>
+					<input type="text" name="businessname" placeholder="" required="" autofocus id="phone">
+				</div>
+
+				<div class="agile-work">
+					<p>Whatsap</p>
+					<div class="agile-days">
+						<span class="Monday">
+							<input type="checkbox" name="week" value="monday" id="whatsap"><br>
+						</span>
+					</div>
+				</div>
+
+				<div class="agile-week">
+					<p >About Me :</p>
+					<textarea id="about"></textarea>
+				</div>
+<div>
+
+	<!-- <input type="text" name="name" id="name"/> <br/> -->
+	<div class="agile-name">
+		<p> Profile Photo :</p>
+		<input type="file"  name="avatar" id="profile"/>	
+	</div>
+
+	<div class="agile-name">
+		<p>Photo 1 :</p>
+		<input type="file"  name="avatar" id="photo1" />	
+	</div>
+	<div class="agile-name">
+		<p>Photo 2 :</p>
+		<input type="file"  name="avatar" id="photo2"/>	
+	</div>
+	<div class="agile-name">
+		<p>Photo 3 :</p>
+		<input type="file"  name="avatar" id="photo3"/>	
+	</div>
+
+	<div class="agile-name">
+		<p>Video :</p>
+		<input type="file"  name="avatar" id="video"/>	
+	</div>
+  <br/>
+    <input type="submit" value="Submit" />
+</form>
+</div>
+<div id="status">
+
+</div>
+			
+	
+
+		<div class="agile-copyright">
+			<footer>&copy; Squitter</footer>
+		</div>
+	</section>
+	
+
+	<!-- Javascript -->
+	<!-- <script src="js/form.js"></script>
+ -->
+
+ <script>
+
+document.getElementById('form').onsubmit = function(event){
+    event.preventDefault() // prevent form from posting without JS
+    var xhttp = new XMLHttpRequest(); // create new AJAX request
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("status").innerHTML = 'sent'+this.responseText+ xhttp.status;
+      }else{
+        document.getElementById("status").innerHTML = xhttp.status ;
+      }
+    }
+
+    xhttp.open("POST", "http://localhost:3000/upload")
+    var formData = new FormData();
+    // the text data
+    formData.append('name', document.getElementById('name').value);
+    formData.append('years', document.getElementById('years').value);
+    formData.append('hobby', document.getElementById('hobby').value);
+    formData.append('height', document.getElementById('height').value);
+    formData.append('weight', document.getElementById('weight').value);
+    formData.append('cest', document.getElementById('cest').value);
+    formData.append('pricenight', document.getElementById('pricenight').value);
+    formData.append('pricehour', document.getElementById('pricehour').value);
+    formData.append('priceday', document.getElementById('priceday').value);
+    formData.append('username', document.getElementById('username').value);
+    formData.append('password', document.getElementById('password').value);
+    formData.append('country', document.getElementById('country').value);
+    formData.append('zipcode', document.getElementById('zipcode').value);
+    formData.append('whatsap', document.getElementById('  ').value);
+    formData.append('about', document.getElementById('about').value );
+    
+
+    // since inputs allow multi files submission, therefore files are in array
+  
+    formData.append('profile', document.getElementById('profile').files[0]); 
+    formData.append('photo1', document.getElementById('photo1').files[0]); 
+    formData.append('photo2', document.getElementById('photo2').files[0]); 
+    formData.append('photo3', document.getElementById('photo3').files[0]); 
+    //formData.append('video', document.getElementById('video').files[0]); 
+
+
+     console.log(formData.values)
+    console.log(document.getElementById('profile').files)
+
+    //xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    // var data = "name=asdasdasdas&degree=MS";
+    xhttp.upload.onprogress = function(evt)
+{
+    if (evt.lengthComputable)
+    {
+        var percentComplete = parseInt((evt.loaded / evt.total) * 100);
+        console.log("Upload: " + percentComplete + "% complete")
+    }
+};
+
+    xhttp.send(formData);
+    // xhttp.abort();
+   
+}
+ </script>
+</body>
+
+
+
+
+</html>

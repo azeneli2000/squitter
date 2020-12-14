@@ -1,0 +1,154 @@
+<%- include('header.ejs') %>
+	<section class="blog-section video-blog-section line">
+		<div class="container">
+			<div class="row">
+
+
+				<div class="col-md-12 breadcrumb t-left">
+					<ol>
+						<li><a href="#">Главная</a></li>
+						<li class="active">Блог</li>
+					</ol>
+				</div>
+				
+				<!-- start: main -->
+				<div class="main clearfix">
+
+					<div class="col-md-12">
+						<h1 class="t-upper c-red">Блог</h1>
+					</div>
+				
+					<!-- start: left side -->
+					<div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-0">
+					
+						<!-- start: blog  -->
+						<div class="blog t-left wow fadeInLeft">
+							<h2>Название статьи</h2>
+							<ul class="actions">
+								<li class="data-info">31.08.2016</li>
+								<li>									
+									<div class="rating-box">
+										<div class="rating rating-3_5"></div>
+									</div>
+								</li>
+								<li class="comment-info">2</li>
+							</ul>
+							<img src="img/blog-img.jpg" alt="">
+							<p class="simple-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio excepturi odio, quasi necessitatibus consequuntur sequi expedita natus commodi adipisci officia alias, aperiam, ad rem quos perferendis quis mollitia voluptate. Nostrum architecto numquam fuga quam ullam quod laboriosam praesentium cum, nesciunt nisi blanditiis nihil tempore dicta molestias reiciendis sunt atque ipsum, nobis cupiditate ea inventore voluptates aspernatur neque deserunt. Voluptates adipisci laboriosam dignissimos atque ipsam modi voluptatem voluptate recusandae, natus voluptatibus repellendus quasi vero totam nostrum sequi. Omnis praesentium sequi deserunt dolore fugiat ex, voluptate distinctio aspernatur, ab alias commodi reprehenderit quam nisi at quia ratione eveniet ut. Eum fugiat sequi modi nihil officiis delectus quibusdam iusto enim recusandae sint. Quisquam dolorum aperiam quo, asperiores consequuntur doloremque placeat vel! Sapiente expedita excepturi facere quibusdam, nisi velit autem sit inventore at eaque laboriosam quisquam alias molestiae ea accusantium error odio. Aspernatur illo culpa illum quibusdam minima odio, incidunt officia laborum est blanditiis omnis alias, nihil quam sapiente iste eligendi sed neque ea! A alias saepe natus vel, officiis est ratione quos recusandae quod id blanditiis quaerat nisi fuga debitis obcaecati sapiente temporibus quis culpa veniam eaque ipsam consectetur itaque. Deserunt beatae expedita repudiandae ipsum quas error nihil cum explicabo sapiente nisi nam deleniti ea reprehenderit eius ipsam dicta hic voluptas adipisci, cupiditate earum distinctio minima excepturi magni soluta? Nam mollitia, culpa suscipit nulla impedit accusamus dolor, optio doloribus facere voluptatibus voluptas eum distinctio quis debitis, non libero deleniti architecto deserunt. Doloremque rerum, excepturi cumque inventore maxime ab exercitationem voluptate deleniti nisi nulla officia reiciendis illo, odio, corrupti porro, veritatis beatae suscipit. Possimus cupiditate quasi amet itaque inventore reiciendis minima nihil recusandae eveniet accusamus. Est nihil aliquid nostrum explicabo, dolore repellendus sunt alias dicta non totam ducimus dignissimos vel sequi minima animi voluptates. Praesentium aliquid quo molestias magni, recusandae a aliquam quis dolorem.</p>
+							<a href="#" class="main-button-2">Читать полностю ></a>
+						</div>
+						<!-- end: blog  -->
+					
+                        <!-- start: blog  -->
+                        <% allBlogs.forEach(function(entry) {%>
+
+						<div class="blog t-left wow fadeInLeft">
+							<h2><%=entry.name%></h2>
+							<ul class="actions">
+								<li class="data-info"><%=entry.date%></li>
+								<li>									
+									<div class="rating-box">
+										<div class="rating rating-3_5"></div>
+									</div>		
+								</li>
+								<li class="comment-info">2</li>
+							</ul>
+							<img src="blogs/<%=entry.id%>.jpg" alt="">
+							<p class="simple-text"><%=entry.about%></p>
+							<a href="#" id= <%=entry.id%> onclick="reply_click(this.id); return false;" class="main-button-2">Читать полностю ></a>
+                        </div>
+                        <%});%>
+
+						<!-- end: blog  -->
+					
+						<!-- start: pagination -->
+						<div class="col-sm-12 col-md-12 pagination t-left">
+							<div class="row">
+								<ul>
+									<li><a href="#">&laquo;</a></li>
+									<li><a href="#">1</a></li>
+									<li class="active"><a href="#">2</a></li>
+									<li><a href="#">3</a></li>
+									<li><a href="#">4</a></li>
+									<li><a href="#">5</a></li>
+									<li><a href="#">&raquo;</a></li>
+								</ul>
+							</div>
+						</div>
+						<!-- end: pagination -->
+					
+					</div>
+					<!-- end: left side -->
+					
+					<!-- start: right side -->
+					<div class="col-md-12 col-lg-4 no-position">
+						
+						<!-- start: chat-iframe-->
+						<div class="chat-iframe">
+							<iframe src="http://sandbox.mlight.pp.ua/vipMollyMain/chat.html" frameborder="0"></iframe>
+							<a href="#modal-2" class="main-button chat-button open-modal">чат</a>
+						</div>
+						<!-- end: chat-iframe-->
+						
+						<!-- start: tags -->
+						<div class="col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-2 block-default tags t-left wow fadeInRight">
+							<p class="block-title">Теги</p>
+							<a href="#" class="t3">american</a> <a href="#" class="t3">feture</a><a href="#" class="t1">country</a><a href="#" class="t4">jobs</a><a href="#" class="t2">law</a><a href="#" class="t1">dream</a><a href="#" class="t5">people</a><a href="#" class="t2">jobs</a><a href="#" class="t1">dream</a><a href="#" class="t5">energy</a><a href="#" class="t3">feture</a>
+							<a href="#" class="t3">american</a><a href="#" class="t1">country</a><a href="#" class="t4">jobs</a><a href="#" class="t2">law</a><a href="#" class="t5">people</a><a href="#" class="t2">jobs</a><a href="#" class="t1">dream</a><a href="#" class="t5">energy</a><a href="#" class="t3">feture</a>
+							<a href="#" class="t1">country</a><a href="#" class="t4">jobs</a><a href="#" class="t2">law</a><a href="#" class="t5">people</a><a href="#" class="t2">jobs</a><a href="#" class="t1">dream</a><a href="#" class="t3">feture</a>
+							<a href="#" class="t3">american</a><a href="#" class="t3">feture</a><a href="#" class="t1">country</a><a href="#" class="t4">jobs</a><a href="#" class="t2">law</a><a href="#" class="t5">people</a><a href="#" class="t2">jobs</a><a href="#" class="t1">dream</a><a href="#" class="t5">energy</a><a href="#" class="t3">feture</a>
+							<a href="#" class="t3">american</a><a href="#" class="t1">country</a><a href="#" class="t4">jobs</a><a href="#" class="t3">feture</a><a href="#" class="t2">law</a><a href="#" class="t5">people</a><a href="#" class="t2">jobs</a><a href="#" class="t1">dream</a><a href="#" class="t3">feture</a>
+							<a href="#" class="t3">american</a><a href="#" class="t1">country</a><a href="#" class="t4">jobs</a><a href="#" class="t2">law</a><a href="#" class="t5">people</a><a href="#" class="t2">jobs</a><a href="#" class="t1">dream</a><a href="#" class="t5">energy</a><a href="#" class="t3">feture</a>
+						</div>
+						<!-- end: tags -->
+					
+						<!-- start: анкеты -->
+						<div class="col-lg-10 col-lg-offset-2 hidden-xs hidden-sm hidden-md visible-lg profiles">
+							<div class="row">
+								<% allBlogs.similarGirls.forEach(function(e) {%>
+								<div class="col-md-12 wow fadeInRight">
+									<div class="gallery-icon">
+										<img src="/uploads/<%=e.id%>-profile.jpg" alt="img">
+										<div class="gallery-caption">
+											<strong><%=e.name%></strong>
+											<p><%=e.years%> years</p>
+											<p><%=e.hobby%></p>
+											<a href="#" id=<%=e.id%> onclick="reply_click_girl(this.id); return false;" class="main-button">View Profile</a>
+										</div>
+									</div>
+								</div>
+								<%});%>
+
+						
+					
+							</div>
+						</div>
+						<!-- end: анкеты -->
+					
+					</div>
+					<!-- end: right side -->
+
+				</div>
+				<!-- end: main -->
+
+
+			</div>
+		</section>
+
+        <%- include('footer.ejs') %>
+
+		<script>
+			
+			function reply_click(clicked_id)
+  {
+    const Url = "http://localhost:3000/blog/"; 
+    location.assign(Url+clicked_id);  
+  }
+
+  function reply_click_girl(clicked_id) {
+
+location.assign("http://localhost:3000/all/" + clicked_id);
+}
+		</script>
+</body>
+</html>

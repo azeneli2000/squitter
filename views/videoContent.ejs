@@ -1,0 +1,140 @@
+<%- include('header.ejs') %>
+
+<section class="video-blog-section video-choosen-section">
+    <div class="container">
+        <div class="row">
+            
+            <div class="col-md-12 breadcrumb t-left">
+                <ol>
+                    <li><a href="#">Главная</a></li>
+                    <li><a href="#">Видео</a></li>
+                    <li><a href="#">Последние видео</a></li>
+                    <li class="active">Название видео</li>
+                </ol>
+            </div>
+            
+            <!-- start: main -->
+            <div class="main clearfix">
+
+                <div class="row">
+                <!-- start: left side -->
+                    <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-0 t-left">
+                    
+                        <!-- start: main-video -->
+                        <div class="main-video wow fadeInLeft">
+                            <h2>Название видео</h2>
+                    
+                            <ul class="actions">
+                                <li class="data-info">31.08.2016</li>
+                                <li>									
+                                    <div class="rating-box">
+                                        <div class="rating rating-3_5"></div>
+                                    </div>
+                                </li>
+                                <li class="views-info">99999</li>
+                                <li class="comment-info">2</li>
+                            </ul>
+                    
+                            <video  controls poster="/img/poster.jpg" ><source src="/video/<%=json.id%>.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'></video>
+                    
+                            <ul class="soc-buttons t-right">
+                                <li class="face wow fadeInLeft" data-wow-delay=".6s"><a href="#"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i> share</a></li>
+                                <li class="twit wow fadeInLeft" data-wow-delay=".3s"><a href="#"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i> tweet</a></li>
+                                <li class="google wow fadeInLeft" data-wow-delay="0s"><a href="#"><i class="fa fa-google-plus fa-lg" aria-hidden="true"> google+</i></a></li>
+                            </ul>
+                    
+                        </div>
+                        <!-- end: main-video -->
+                    
+                    
+                        <!-- start: comments -->
+                        <div class="block-default t-left">
+                            <div class="block-title">Коментарии(2)
+                                <div class="rating-box">
+                                    <div class="rating rating-3_5"></div>
+                                </div>
+                            </div>
+                    
+                            <div class="comment wow fadeInLeft">
+                                <h3>Имя</h3>
+                                <p class="simple-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum nisi placeat soluta dolorem ut ea quis dignissimos laboriosam praesentium beatae! Sunt iusto officia corrupti fugit deleniti accusantium nemo vero, natus culpa animi. Laudantium error similique, officiis, nulla aliquid iure doloribus facilis aut eveniet dolorum sint ut optio omnis aspernatur libero!</p>
+                                <div class="rating-box">
+                                    <div class="rating rating-3"></div>
+                                </div>
+                            </div>
+                    
+                            <div class="comment wow fadeInLeft">
+                                <h3>Имя</h3>
+                                <p class="simple-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum repellat nemo debitis reiciendis dolorum aliquid, consectetur nostrum! Quis repudiandae, beatae id quaerat ullam iusto sint facere repellendus, laudantium ipsa suscipit.</p>
+                                <div class="rating-box">
+                                    <div class="rating rating-4"></div>
+                                </div>
+                            </div>
+                    
+                            <a href="#modal-1" class="main-button-2 open-modal">Добавить коментарий</a>
+                    
+                        </div>
+                        <!-- end: comments -->
+                    
+                        <!-- start:  similar-video -->
+                        <div class="block-default similar-video t-left">
+                            <p class="block-title">Похожие видео</p>
+                    
+                    
+                    
+                            <div class="col-sm-4 col-md-4 video-item wow zoomIn" data-wow-delay="0">
+                                <a href="#" class="view-move">
+                                    <img src="/img/poster.jpg" alt="img">
+                                </a>
+                                <a href="#" class="video-title">Название видео</a>
+                                <div class="rating-box">
+                                    <div class="rating rating-4_5"></div>
+                                </div>
+                                <div class="views-info">999 просмотров</div>
+                            </div>
+                    
+                            <div class="col-sm-4 col-md-4 video-item wow zoomIn" data-wow-delay=".2s">
+                                <a href="#" class="view-move">
+                                    <img src="/img/poster.jpg" alt="img">
+                                </a>
+                                <a href="#" class="video-title">Название видео</a>
+                                <div class="rating-box">
+                                    <div class="rating rating-3_5"></div>
+                                </div>
+                                <div class="views-info">999 просмотров</div>
+                            </div>
+                    
+                            <div class="col-sm-4 col-md-4 video-item wow zoomIn" data-wow-delay=".4s">
+                                <a href="#" class="view-move">
+                                    <img src="/img/poster.jpg" alt="img">
+                                </a>
+                                <a href="#" class="video-title">Название видео</a>
+                                <div class="rating-box">
+                                    <div class="rating rating-2"></div>
+                                </div>
+                                <div class="views-info">999 просмотров</div>
+                            </div>
+                    
+                        </div>
+                        <!--end: similar-video -->
+                    
+                    </div>
+                    <!-- end: left side -->
+                    
+                    <!-- start: right side -->
+                    <div class="col-md-12 col-lg-4 no-position chat-container t-left">
+                    
+                        <div class="chat-iframe">
+                            <iframe src="http://sandbox.mlight.pp.ua/vipMollyMain/chat.html" frameborder="0"></iframe>
+                            <a href="#modal-2" class="main-button chat-button open-modal">чат</a>
+                        </div>
+                    
+                    </div>
+                    <!-- end: right side -->
+
+            </div>
+            <!-- end: main -->
+
+        </div>
+    </section>
+    <%- include('footer.ejs') %>

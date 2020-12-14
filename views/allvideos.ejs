@@ -1,0 +1,134 @@
+<%- include('header.ejs') %>
+
+
+<section class="line video-blog-section video-category-section">
+    <div class="container">
+        <div class="row">
+            
+            <div class="col-md-12 breadcrumb t-left">
+                <ol>
+                    <li><a href="#">Главная</a></li>
+                    <li><a href="#">Видео</a></li>
+                    <li class="active">Последние видео</li>
+                </ol>
+            </div>
+            
+            <!-- start: main -->
+            <div class="main clearfix">
+
+                <div class="col-md-12">
+                    <h1 class="t-upper c-red">Последние видео</h1>
+                </div>
+
+                <!-- start: left side-->
+                    <div class="col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-0 t-left">
+                    
+                        <!-- start: all-videos -->
+                        <% allGirls.forEach(function(entry) {%>
+
+                        <div class="all-videos">
+                            <div class="col-sm-4 col-md-4 video-item wow zoomIn" data-wow-delay="0">
+                                <a href="#" >
+                                    <video  id= <%=entry.id%> onclick="reply_click(this.id); return false;" class="lazy"   loop playsinline muted poster="/img/poster.jpg">
+                                        <!-- <source data-src="one-does-not-simply.webm" type="video/webm"> -->
+                                        <source src="/video/<%=entry.id%>-preview.mp4" type="video/mp4">
+                                      </video>
+                                </a>
+                                <a href="#" class="video-title"><%=entry.id%> </a>
+                                <div class="rating-box">
+                                    <div class="rating rating-4_5"></div>
+                                </div>
+                                <div class="views-info">999 views</div>
+                            </div>
+                            <%});%>
+
+                          
+                        <!-- end: all-videos -->
+                    </div>
+                    <!-- end: left side-->
+                    
+                    <!-- start: right side -->
+                    <div class="col-md-12 col-lg-4 no-position chat-container">
+                    
+                        <div class="chat-iframe">
+                            <iframe src="http://sandbox.mlight.pp.ua/vipMollyMain/chat.html" frameborder="0"></iframe>
+                            <a href="#modal-2" class="main-button chat-button open-modal">чат</a>
+                        </div>
+                    
+                    </div>		
+                    <!-- start: right side -->
+
+            </div>
+            <!-- end: main -->
+
+            <!-- start: pagination -->
+            <div class="col-sm-12 col-md-12 pagination">
+                <ul>
+                    <li><a href="#">&laquo;</a></li>
+                    <li><a href="#">1</a></li>
+                    <li class="active"><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">&raquo;</a></li>
+                </ul>
+            </div>
+            <!-- end: pagination -->
+
+        </div>
+    </section>
+    <script>
+    // document.addEventListener("DOMContentLoaded", function() {
+    //     var lazyVideos = [].slice.call(document.querySelectorAll("video.lazy"));
+      
+    //     if ("IntersectionObserver" in window) {
+    //       var lazyVideoObserver = new IntersectionObserver(function(entries, observer) {
+    //         entries.forEach(function(video) {
+    //           if (video.isIntersecting) {
+    //             for (var source in video.target.children) {
+    //               var videoSource = video.target.children[source];
+    //               if (typeof videoSource.tagName === "string" && videoSource.tagName === "SOURCE") {
+    //                 videoSource.src = videoSource.dataset.src;
+    //               }
+    //             }
+      
+    //            // video.target.load();
+    //             video.target.classList.remove("lazy");
+    //             lazyVideoObserver.unobserve(video.target);
+    //           }
+    //         });
+    //       });
+      
+    //       lazyVideos.forEach(function(lazyVideo) {
+    //         lazyVideoObserver.observe(lazyVideo);
+    //       });
+    //     }
+    //   });
+
+// something along that
+var vid = document.getElementsByTagName("video");
+[].forEach.call(vid, function (item) {
+	item.addEventListener('mouseover', hoverVideo, false);
+	item.addEventListener('mouseout', hideVideo, false);
+});
+
+function hoverVideo(e)
+{	
+    this.pause();
+     this.currentTime = 0;
+     this.play();
+}
+function hideVideo(e)
+{
+	this.pause();
+}
+
+
+function reply_click(clicked_id)
+  {
+    const Url = "http://localhost:3000/allvideos/"; 
+    location.assign(Url+clicked_id);  
+  }
+
+    </script>
+<%- include('footer.ejs') %>
