@@ -2,12 +2,12 @@
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
 <!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!--><html lang="ru"> <!--<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
 
 <head>
 
 	<meta charset="utf-8">
-	<title>vipMolly</title>
+	<title>Squitter</title>
 	<!-- SEO -->
   	<meta name="author" content="">
   	<meta name="description" content="">
@@ -217,7 +217,7 @@
 		<div class="col-xs-12 col-sm-12 col-md-12 col-sm-offset-4 col-md-offset-4 col-xs-offset-0">
 
 		<video controls autoplay muted>
-			<source id="girlVideo" src="/video/<%=json.id%>.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'></video>
+			<source id="girlVideo" src="/video/<%=json.id%>.mp4" type='video/mp4;'></video>
 				<div>
 					<img src="http://icons.iconarchive.com/icons/custom-icon-design/pretty-office-9/256/open-file-icon.png" width="50" height="50" onclick="document.getElementById('videoUpload').click();" style="cursor: pointer;">
 					<input type="file" id="videoUpload" style="visibility: hidden;" />
@@ -353,7 +353,7 @@ document.getElementById('formInfo').onsubmit = function(event){
        // document.getElementById("status").innerHTML = xhttp.status ;
       }
     }
-    xhttp.open("POST", "http://localhost:3000/uploadinfo/" + girlID)
+    xhttp.open("POST", "http://185.158.2.13/uploadinfo/" + girlID)
     var formData = new FormData();
     // the text data
     formData.append('name', document.getElementById('name').value);
@@ -371,22 +371,6 @@ document.getElementById('formInfo').onsubmit = function(event){
     // formData.append('zipcode', document.getElementById('zipcode').value);
     // formData.append('whatsap', document.getElementById('  ').value);
     formData.append('about', document.getElementById('about').value );
-    
-
-    // since inputs allow multi files submission, therefore files are in array
-  
-    // formData.append('profile', document.getElementById('profile').files[0]); 
-    // formData.append('photo1', document.getElementById('photo1').files[0]); 
-    // formData.append('photo2', document.getElementById('photo2').files[0]); 
-    // formData.append('photo3', document.getElementById('photo3').files[0]); 
-    //formData.append('video', document.getElementById('video').files[0]); 
-
-
-    //  console.log(formData.values)
-    // console.log(document.getElementById('profile').files)
-
-    //xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    // var data = "name=asdasdasdas&degree=MS";
     xhttp.upload.onprogress = function(evt)
 {
     if (evt.lengthComputable)
@@ -412,7 +396,7 @@ document.getElementById('formPhoto').onsubmit = function(event){
       }
     }
 
-    xhttp.open("POST", "http://localhost:3000/uploadphotos/"+girlID)
+    xhttp.open("POST", "http://185.158.2.13/uploadphotos/"+girlID)
     var formData = new FormData();
     formData.append('profile', document.getElementById('profileUpload').files[0]); 
     formData.append('photo1', document.getElementById('photo1Upload').files[0]); 
@@ -443,9 +427,9 @@ document.getElementById('formVideo').onsubmit = function(event){
       }
     }
 
-    xhttp.open("POST", "http://localhost:3000/uploadvideo/"+girlID.trim())
+    xhttp.open("POST", "http://185.158.2.13/uploadvideo/"+girlID.trim())
 	
-	console.log("http://localhost:3000/uploadvideo/"+girlID.trim())
+	console.log("http://185.158.2.13/uploadvideo/"+girlID.trim())
 	var formDataVideo = new FormData();
     
 	formDataVideo.append('video', document.getElementById('videoUpload').files[0]); 

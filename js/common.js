@@ -120,23 +120,23 @@ $(document).ready(function() {
     });
 
     //fixed chat
-    if ($(window).width() >= 1200) {
-        chatStart = $('.chat-container .chat-iframe').offset().top - 60;
-        chatStop = $('.main').height() + chatStart - $('.chat-container .chat-iframe').height();
+    // if ($(window).width() >= 1200) {
+    //     chatStart = $('.chat-container .chat-iframe').offset().top - 60;
+    //     chatStop = $('.main').height() + chatStart - $('.chat-container .chat-iframe').height();
 
-        $(window).scroll(function(){
-            if (($(document).scrollTop() >= chatStart) && ($(document).scrollTop() < chatStop)) {
-                $('.chat-container .chat-iframe').addClass('fixed');
-            } else {
-                $('.chat-container .chat-iframe').removeClass('fixed');
-            }
-            if ($(document).scrollTop() >= chatStop) {
-                $('.chat-container .chat-iframe').addClass('active').css({'bottom': -chatStop});
-            } else {
-                $('.chat-container .chat-iframe').removeClass('active');
-            }
-        });
-    }
+    //     $(window).scroll(function(){
+    //         if (($(document).scrollTop() >= chatStart) && ($(document).scrollTop() < chatStop)) {
+    //             $('.chat-container .chat-iframe').addClass('fixed');
+    //         } else {
+    //             $('.chat-container .chat-iframe').removeClass('fixed');
+    //         }
+    //         if ($(document).scrollTop() >= chatStop) {
+    //             $('.chat-container .chat-iframe').addClass('active').css({'bottom': -chatStop});
+    //         } else {
+    //             $('.chat-container .chat-iframe').removeClass('active');
+    //         }
+    //     });
+    // }
 });
 
 

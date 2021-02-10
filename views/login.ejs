@@ -2,12 +2,12 @@
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
 <!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!--><html lang="ru"> <!--<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
 
 <head>
 
 	<meta charset="utf-8">
-	<title>vipMolly</title>
+	<title>Squitter</title>
 	<!-- SEO -->
   	<meta name="author" content="">
   	<meta name="description" content="">
@@ -118,13 +118,13 @@
                        // console.log(JSON.parse(this.response));
                         let id = JSON.parse(this.response).id;
                         
-                        location.assign("http://localhost:3000/girlinfo/"+ id)
+                        location.assign("http://185.158.2.13/girlinfo/"+ id)
                         }
                     } else {
                        document.getElementById("status").innerHTML = "Wrong credentials !";
                     }
                 }
-                xhttp.open("POST", "http://localhost:3000/verifylogin/")
+                xhttp.open("POST", "http://185.158.2.13/verifylogin/")
                 var formData = new FormData();
                 // the text data
                 formData.append('username', document.getElementById('username').value);

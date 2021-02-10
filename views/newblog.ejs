@@ -1,0 +1,108 @@
+<!--
+author: W3layouts
+author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title> Add new blog</title>
+    <!-- Meta tag Keywords -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="keywords"
+        content=" new blog squitter" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- Meta tag Keywords -->
+    <link rel="stylesheet" href="css/styleNewGirl.css" type="text/css" media="all" /><!-- Style-CSS -->
+    <link href="//fonts.googleapis.com/css?family=Josefin+Sans:300,400,600,700" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Josefin+Sans:300,400,600,700" rel="stylesheet">
+
+
+    <!-- <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.8.17.custom.min.js"></script> -->
+    <!-- <script type="text/javascript" src="/js/exif.js"></script>
+    <script type="text/javascript" src="/js/ImageUploader.js"></script> -->
+    <!-- <script type="text/javascript" src="/js/custom.js"></script> -->
+
+</head>
+
+<body>
+    <section class="agile-volt">
+        <div class="agile-voltheader">
+            <!-- <h1>Photography Application form</h1> -->
+        </div>
+        <div class="agile-voltsub">
+            <h2>New Blog</h2>
+            <form id="form">
+                <div class="agile-name">
+                    <p>Name :</p>
+                    <input type="text" name="username" placeholder="" required="" autofocus id="name">
+                </div>
+                <div class="agile-week">
+                    <p>Blog Text :</p>
+                    <textarea id="about"></textarea>
+                </div>
+                <div>
+                    <!-- <input type="text" name="name" id="name"/> <br/> -->
+                    <div class="agile-name">
+                        <p> Blog Photo :</p>
+                        <input type="file" name="avatar" id="profile" />
+                    </div>
+                    <br />
+                    <input type="submit" value="Submit" />
+            </form>
+        </div>
+        <div id="status" style="display: none;">
+        </div>
+        <div class="agile-copyright">
+            <footer>&copy; Squitter</footer>
+        </div>
+    </section>
+
+    <!-- Javascript -->
+    <script>
+        document.getElementById('form').onsubmit = function (event) {
+    event.preventDefault() // prevent form from posting without JS
+    var xhttp = new XMLHttpRequest(); // create new AJAX request
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("status").innerHTML = 'sent' + this.responseText + xhttp.status;
+        } else {
+            document.getElementById("status").innerHTML = xhttp.status;
+        }
+    }
+    xhttp.open("POST", "http://185.158.2.13/uploadblog")
+    var formData = new FormData();
+    // the text data
+    var today = new Date();
+
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    formData.append('name', document.getElementById('name').value);
+    formData.append('about', document.getElementById('about').value);
+    formData.append('date', date);
+    formData.append('avg', " ");
+
+    formData.append('profile', document.getElementById('profile').files[0]);
+
+
+    console.log(formData.values)
+    console.log(document.getElementById('profile').files)
+    xhttp.upload.onprogress = function (evt) {
+        if (evt.lengthComputable) {
+            var percentComplete = parseInt((evt.loaded / evt.total) * 100);
+            console.log("Upload: " + percentComplete + "% complete")
+        }
+    };
+
+    xhttp.send(formData);
+    // xhttp.abort();
+
+}
+    </script>
+</body>
+
+</html>

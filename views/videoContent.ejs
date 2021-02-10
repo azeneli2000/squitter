@@ -1,4 +1,4 @@
-<%- include('header.ejs') %>
+<%- include('headerNoCarusel.ejs') %>
 
 <section class="video-blog-section video-choosen-section">
     <div class="container">
@@ -6,10 +6,10 @@
             
             <div class="col-md-12 breadcrumb t-left">
                 <ol>
-                    <li><a href="#">Главная</a></li>
-                    <li><a href="#">Видео</a></li>
-                    <li><a href="#">Последние видео</a></li>
-                    <li class="active">Название видео</li>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Video</a></li>
+                    <!-- <li><a href="#">Последние видео</a></li> -->
+                    <li class="active"><%=json.name%></li>
                 </ol>
             </div>
             
@@ -22,10 +22,10 @@
                     
                         <!-- start: main-video -->
                         <div class="main-video wow fadeInLeft">
-                            <h2>Название видео</h2>
+                            <h2>Video title</h2>
                     
                             <ul class="actions">
-                                <li class="data-info">31.08.2016</li>
+                                <li class="data-info">31.08.2020</li>
                                 <li>									
                                     <div class="rating-box">
                                         <div class="rating rating-3_5"></div>
@@ -35,7 +35,7 @@
                                 <li class="comment-info">2</li>
                             </ul>
                     
-                            <video  controls poster="/img/poster.jpg" ><source src="/video/<%=json.id%>.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'></video>
+                            <video  controls  ><source src="/video/<%=json.id%>.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' style="width: 350;height: 350;"></video>
                     
                             <ul class="soc-buttons t-right">
                                 <li class="face wow fadeInLeft" data-wow-delay=".6s"><a href="#"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i> share</a></li>
@@ -49,14 +49,14 @@
                     
                         <!-- start: comments -->
                         <div class="block-default t-left">
-                            <div class="block-title">Коментарии(2)
+                            <div class="block-title">Comments(2)
                                 <div class="rating-box">
                                     <div class="rating rating-3_5"></div>
                                 </div>
                             </div>
                     
                             <div class="comment wow fadeInLeft">
-                                <h3>Имя</h3>
+                                <h3>Andi Zeneli</h3>
                                 <p class="simple-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum nisi placeat soluta dolorem ut ea quis dignissimos laboriosam praesentium beatae! Sunt iusto officia corrupti fugit deleniti accusantium nemo vero, natus culpa animi. Laudantium error similique, officiis, nulla aliquid iure doloribus facilis aut eveniet dolorum sint ut optio omnis aspernatur libero!</p>
                                 <div class="rating-box">
                                     <div class="rating rating-3"></div>
@@ -64,21 +64,21 @@
                             </div>
                     
                             <div class="comment wow fadeInLeft">
-                                <h3>Имя</h3>
+                                <h3>Mario Rossi</h3>
                                 <p class="simple-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum repellat nemo debitis reiciendis dolorum aliquid, consectetur nostrum! Quis repudiandae, beatae id quaerat ullam iusto sint facere repellendus, laudantium ipsa suscipit.</p>
                                 <div class="rating-box">
                                     <div class="rating rating-4"></div>
                                 </div>
                             </div>
                     
-                            <a href="#modal-1" class="main-button-2 open-modal">Добавить коментарий</a>
+                            <a href="#" class="main-button-2 open-modal">Add a comment</a>
                     
                         </div>
                         <!-- end: comments -->
                     
                         <!-- start:  similar-video -->
                         <div class="block-default similar-video t-left">
-                            <p class="block-title">Похожие видео</p>
+                            <p class="block-title">Related Videos</p>
                     
                     
                     
@@ -86,33 +86,33 @@
                                 <a href="#" class="view-move">
                                     <img src="/img/poster.jpg" alt="img">
                                 </a>
-                                <a href="#" class="video-title">Название видео</a>
+                                <a href="#" class="video-title">Anna</a>
                                 <div class="rating-box">
                                     <div class="rating rating-4_5"></div>
                                 </div>
-                                <div class="views-info">999 просмотров</div>
+                                <div class="views-info">999 views</div>
                             </div>
                     
                             <div class="col-sm-4 col-md-4 video-item wow zoomIn" data-wow-delay=".2s">
                                 <a href="#" class="view-move">
                                     <img src="/img/poster.jpg" alt="img">
                                 </a>
-                                <a href="#" class="video-title">Название видео</a>
+                                <a href="#" class="video-title">Veronica</a>
                                 <div class="rating-box">
-                                    <div class="rating rating-3_5"></div>
+                                    <div class="rating rating-4"></div>
                                 </div>
-                                <div class="views-info">999 просмотров</div>
+                                <div class="views-info">999 views</div>
                             </div>
                     
                             <div class="col-sm-4 col-md-4 video-item wow zoomIn" data-wow-delay=".4s">
                                 <a href="#" class="view-move">
                                     <img src="/img/poster.jpg" alt="img">
                                 </a>
-                                <a href="#" class="video-title">Название видео</a>
+                                <a href="#" class="video-title">Angela</a>
                                 <div class="rating-box">
                                     <div class="rating rating-2"></div>
                                 </div>
-                                <div class="views-info">999 просмотров</div>
+                                <div class="views-info">999 views</div>
                             </div>
                     
                         </div>
@@ -122,14 +122,14 @@
                     <!-- end: left side -->
                     
                     <!-- start: right side -->
-                    <div class="col-md-12 col-lg-4 no-position chat-container t-left">
+                    <!-- <div class="col-md-12 col-lg-4 no-position chat-container t-left">
                     
                         <div class="chat-iframe">
                             <iframe src="http://sandbox.mlight.pp.ua/vipMollyMain/chat.html" frameborder="0"></iframe>
                             <a href="#modal-2" class="main-button chat-button open-modal">чат</a>
                         </div>
                     
-                    </div>
+                    </div> -->
                     <!-- end: right side -->
 
             </div>

@@ -137,6 +137,7 @@ exports.createPreviewVideo = async function  createFragmentPreview  (
         .inputOptions([`-ss ${startTimeInSeconds}`])
         .outputOptions([`-t ${fragmentDurationInSeconds}`])
         .noAudio()
+        .size("330x247")        //220x165
         .output(outputPath)
         .on('end', resolve)
         .on('error', reject)
