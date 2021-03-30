@@ -91,13 +91,27 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 
 				<div class="agile-country">
 					<p>State</p>
-					<select id="country">
-						<option value="country"></option>
-						<option value="country1">Italy</option>
-						<option value="country2">Spain</option>
+					<select id="countrySel" size="1">
+						<option value="" selected="selected">Select Country</option>
+
 					</select>
 				</div>
 
+				<div class="agile-country">
+					<p>City</p>
+					<select id="stateSel" size="1">
+						<option value="" selected="selected">Select State</option>
+
+					</select>
+				</div>
+
+				<div class="agile-country" >
+					<p>Province</p>
+					<select id="districtSel" size="1">
+						<option value="" selected="selected">Select Province</option>
+
+					</select>
+				</div>
 				<div class="agile-pin">
 					<p>Zipcode :</p>
 					<input type="tel" name="zipcode" placeholder="" id="zipcode" />
@@ -164,7 +178,43 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 	<!-- Javascript -->
 	<!-- <script src="js/form.js"></script>
  -->
-
+<script>
+	var stateObject = {
+"Italy": { "Bari": ["Giovinazzo", "Conversano"],
+"Lecce": ["Nardo", "Tricase"],
+"Foggia": ["Cerignola", "San Severo"],
+},
+"Spain": {
+"barcelona": ["abc", "bbb"],
+"Madrid": ["ffff", "ggg"]
+}, 
+}
+window.onload = function () {
+var countySel = document.getElementById("countrySel"),
+stateSel = document.getElementById("stateSel"),
+districtSel = document.getElementById("districtSel");
+for (var country in stateObject) {
+countySel.options[countySel.options.length] = new Option(country, country);
+}
+countySel.onchange = function () {
+stateSel.length = 1; // remove all options bar first
+districtSel.length = 1; // remove all options bar first
+if (this.selectedIndex < 1) return; // done
+for (var state in stateObject[this.value]) {
+stateSel.options[stateSel.options.length] = new Option(state, state);
+}
+}
+countySel.onchange(); // reset in case page is reloaded
+stateSel.onchange = function () {
+districtSel.length = 1; // remove all options bar first
+if (this.selectedIndex < 1) return; // done
+var district = stateObject[countySel.value][this.value];
+for (var i = 0; i < district.length; i++) {
+districtSel.options[districtSel.options.length] = new Option(district[i], district[i]);
+}
+}
+}
+</script>
 	<script>
 
 		document.getElementById('form').onsubmit = function (event) {
@@ -172,9 +222,12 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 			var xhttp = new XMLHttpRequest(); // create new AJAX request
 			xhttp.onreadystatechange = function () {
 				if (this.readyState == 4 && this.status == 200) {
+
 				//	document.getElementById("status").innerHTML = 'sent' + this.responseText + xhttp.status;
 				} else {
 				//	document.getElementById("status").innerHTML = xhttp.status;
+				alert("Girl uploadoed sucessfully !");
+
 				}
 			}
 
@@ -192,7 +245,11 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 			formData.append('priceday', document.getElementById('priceday').value);
 			formData.append('username', document.getElementById('username').value);
 			formData.append('password', document.getElementById('password').value);
-			formData.append('country', document.getElementById('country').value);
+			formData.append('country', document.getElementById('countrySel').value);
+			formData.append('city', document.getElementById('stateSel').value);
+			formData.append('province', document.getElementById('districtSel').value);
+
+
 			formData.append('zipcode', document.getElementById('zipcode').value);
 			formData.append('whatsap', document.getElementById('whatsap').value);
 			formData.append('about', document.getElementById('about').value);
@@ -212,10 +269,12 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 					var percentComplete = parseInt((evt.loaded / evt.total) * 100);
 					console.log("Upload: " + percentComplete + "% complete")
 				}
+
 			};
 
 			xhttp.send(formData);
 			// xhttp.abort();
+			alert("Girl uploadoed sucessfully !");
 
 		}
 	</script>

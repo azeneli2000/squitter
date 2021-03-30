@@ -45,14 +45,15 @@ app.use(function (req, res, next) {
 });
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    if (file.mimetype === 'video/quicktime' || file.mimetype === 'video/mp4' ) {
-      cb(null, 'video')
-    } else if (file.mimetype === 'image/jpeg') {
-      cb(null, 'uploads');
-    } else {
-      console.log(file.mimetype)
-      cb({ error: 'Mime type not supported' })
-    }
+    // if (file.mimetype === 'video/quicktime' || file.mimetype === 'video/mp4' ) {
+    //   cb(null, 'video')
+    // } else if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    //   cb(null, 'uploads');
+    // } else {
+    //   console.log(file.mimetype)
+    //   cb({ error: 'Mime type not supported' })
+    // }
+    cb(null,'uploads')
   }
 })
 var upload1 = multer([{ storage: storage }]);
@@ -75,13 +76,22 @@ var upload1 = multer({ storage });
 app.get("/newgirl",(req,res)=>{
   res.render("newgirl")
 })
+//modifying girl data
 app.post('/upload', upload1.any(), (req, res) => {
   //give unique id 
   let id = uuid();
   let data = req.body;
   data.id = id;
   data.reviews = [];
+  data.storiePath = [];
   crudRedis.add("all", data);
+//  new directory for the girl
+    fs.mkdirSync('./uploads/'+data.id);
+    fs.mkdirSync('./uploads/'+data.id + "/profile");
+    fs.mkdirSync('./uploads/'+data.id + "/video");
+    fs.mkdirSync('./uploads/'+data.id + "/storie");
+
+
   for (let index = 0; index < req.files.length; index++) {
     if (index == 0) {
       //rename profile photo
@@ -90,14 +100,14 @@ app.post('/upload', upload1.any(), (req, res) => {
       });
       //resize profile photo
       sharp.cache(false);
-      sharp("uploads/" + data.id + "p0.jpg").resize(263, 310).jpeg({ quality: 90 }).toFile("uploads/" + data.id + "-profile.jpg", (err, info) => {
+      sharp("uploads/" + data.id + "p0.jpg").resize(263, 310).jpeg({ quality: 90 }).toFile("uploads/" + data.id + "/profile/"+ data.id + "-profile.jpg", (err, info) => {
         if (err) {
           console.log(err);
         } else {
           // deleteFile("./uploads/" + data.id + "p0.jpg");
         }
       })
-      sharp("uploads/" + data.id + "p0.jpg").resize(458, 542).jpeg({ quality: 90 }).toFile("uploads/" + data.id + "-profile-detail.jpg", (err, info) => {
+      sharp("uploads/" + data.id + "p0.jpg").resize(458, 542).jpeg({ quality: 90 }).toFile("uploads/" + data.id + "/profile/"+ data.id + "-profile-detail.jpg", (err, info) => {
         if (err) {
           console.log(err);
         } else {
@@ -113,14 +123,14 @@ app.post('/upload', upload1.any(), (req, res) => {
       });
       //resize profile photo 
       sharp.cache(false);
-      sharp("uploads/" + data.id + "p1.jpg").resize(236, 279).jpeg({ quality: 70 }).toFile("uploads/" + data.id + "-photo1-thumb.jpg", (err, info) => {
+      sharp("uploads/" + data.id + "p1.jpg").resize(236, 279).jpeg({ quality: 70 }).toFile("uploads/" + data.id + "/profile/" + data.id + "-photo1-thumb.jpg", (err, info) => {
         if (err) {
           console.log(err);
         } else {
           // deleteFile("./uploads/" + data.id + "p1.jpg")        
         }
       })
-      sharp("uploads/" + data.id + "p1.jpg").resize(458, 542).jpeg({ quality: 90 }).toFile("uploads/" + data.id + "-photo1.jpg", (err, info) => {
+      sharp("uploads/" + data.id + "p1.jpg").resize(458, 542).jpeg({ quality: 90 }).toFile("uploads/" + data.id + "/profile/" + data.id + "-photo1.jpg", (err, info) => {
         if (err) {
           console.log(err);
         } else {
@@ -136,14 +146,14 @@ app.post('/upload', upload1.any(), (req, res) => {
       });
       //resize profile photo
       sharp.cache(false);
-      sharp("uploads/" + data.id + "p2.jpg").resize(236, 279).jpeg({ quality: 70 }).toFile("uploads/" + data.id + "-photo2-thumb.jpg", (err, info) => {
+      sharp("uploads/" + data.id + "p2.jpg").resize(236, 279).jpeg({ quality: 70 }).toFile("uploads/" + data.id + "/profile/" + data.id + "-photo2-thumb.jpg", (err, info) => {
         if (err) {
           console.log(err);
         } else {
           // deleteFile("./uploads/" + data.id + "p2.jpg")   
         }
       })
-      sharp("uploads/" + data.id + "p2.jpg").resize(458, 542).jpeg({ quality: 90 }).toFile("uploads/" + data.id + "-photo2.jpg", (err, info) => {
+      sharp("uploads/" + data.id + "p2.jpg").resize(458, 542).jpeg({ quality: 90 }).toFile("uploads/"+ data.id + "/profile/" + data.id + "-photo2.jpg", (err, info) => {
         if (err) {
           console.log(err);
         } else {
@@ -151,7 +161,7 @@ app.post('/upload', upload1.any(), (req, res) => {
         }
       })
     }
-    //photo 2
+    //photo 3
     if (index == 3) {
       //rename profile photo
       fs.rename(req.files[3].path, "./uploads/" + data.id + "p3.jpg", (err) => {
@@ -160,14 +170,14 @@ app.post('/upload', upload1.any(), (req, res) => {
       //resize profile photo
       sharp.cache(false);
 
-      sharp("uploads/" + data.id + "p3.jpg").resize(236, 279).jpeg({ quality: 70 }).toFile("uploads/" + data.id + "-photo3-thumb.jpg", (err, info) => {
+      sharp("uploads/" + data.id + "p3.jpg").resize(236, 279).jpeg({ quality: 70 }).toFile("uploads/" + data.id + "/profile/"+ data.id + "-photo3-thumb.jpg", (err, info) => {
         if (err) {
           console.log(err);
         } else {
           //  deleteFile("./uploads/" + data.id + "p3.jpg")        
         }
       })
-      sharp("uploads/" + data.id + "p3.jpg").resize(458, 542).jpeg({ quality: 90 }).toFile("uploads/" + data.id + "-photo3.jpg", (err, info) => {
+      sharp("uploads/" + data.id + "p3.jpg").resize(458, 542).jpeg({ quality: 90 }).toFile("uploads/" + data.id + "/profile/"+ data.id + "-photo3.jpg", (err, info) => {
         if (err) {
           console.log(err);
         } else {
@@ -178,7 +188,7 @@ app.post('/upload', upload1.any(), (req, res) => {
   }
   res.send(req.body);
 })
-//aading review to girl
+//ading review to girl
 app.post('/review', upload1.any(), (req, res) => {
   let d = req;
   crudRedis.addReview(req.body.girlID, { name: req.body.name, email: req.body.email, star: req.body.stars, feedback: req.body.feedback });
@@ -189,7 +199,6 @@ app.get("/", (req, res) => {
  var allGirls;
   client.get("all", (err, val) => {
      allGirls = JSON.parse(val);
-     console.log(allGirls)
      function random(min, max) {
       var n = [];
       if(allGirls.length>0)
@@ -210,7 +219,6 @@ app.get("/", (req, res) => {
       var allBlogs = JSON.parse(valblog);
       allGirls.similarGirls = random(0, allGirls.length)
       allGirls.allBlogs = allBlogs;
-      console.log(allGirls.similarGirls)
      res.render("home", { allGirls: allGirls });
      });
    
@@ -348,6 +356,7 @@ app.get("/allvideos" ,(req,res)=>{
     res.render("allvideos", { allGirls: allGirls });
   });
 })
+//getting video with id
 app.get("/allvideos/:id", (req, res) => {
   var idB = req.params.id;
   client.get("all", (err, val) => {
@@ -379,6 +388,7 @@ app.get("/allvideos/:id", (req, res) => {
 });
 
 //**********Girl Info *********************/
+//getting girl info
 app.get("/girlinfo/:id",(req,res)=>{
   var girlID = req.params.id;
   client.get("all",(err,value)=>{
@@ -387,32 +397,34 @@ app.get("/girlinfo/:id",(req,res)=>{
     res.render("girlInfo.ejs",{json:json});
   });
 });
+//uploading girl info
 app.post("/uploadinfo/:id",upload1.any(),(req,res)=>{
   let girlID = req.params.id;
   let info = JSON.parse(JSON.stringify( req.body));
   crudRedis.updateGirlInfo(girlID,info);
   res.send(req.body);
 });
+//uploading girl photos
 app.post("/uploadphotos/:id",upload1.any(),(req,res)=>{
   let girlID = req.params.id;
   for (let index = 0; index < req.files.length; index++) {
     if (index == 0) {
       //rename profile photo
-      fs.rename(req.files[0].path, "./uploads/" + girlID + "p0.jpg", (err) => {
+      fs.rename(req.files[0].path, "./uploads/"  + girlID + "p0.jpg", (err) => {
         console.log(err);
       });
       //resize profile photo
       sharp.cache(false);
      // const {orientation} = sharp("uploads/" + girlID+ "p0.jpg").metadata();
       // console.log({orientation});
-      sharp("uploads/" + girlID+ "p0.jpg").rotate().resize(263, 310).jpeg({ quality: 90 }).toFile("uploads/" + girlID + "-profile.jpg", (err, info) => {
+      sharp("uploads/" + girlID+ "p0.jpg").rotate().resize(263, 310).jpeg({ quality: 90 }).toFile("uploads/" + girlID + "/profile/" + girlID + "-profile.jpg", (err, info) => {
         if (err) {
           console.log(err);
         } else {
           // deleteFile("./uploads/" + data.id + "p0.jpg");
         }
       })
-      sharp("uploads/" + girlID + "p0.jpg").rotate().resize(458, 542).jpeg({ quality: 90 }).toFile("uploads/" +girlID + "-profile-detail.jpg", (err, info) => {
+      sharp("uploads/" + girlID + "p0.jpg").rotate().resize(458, 542).jpeg({ quality: 90 }).toFile("uploads/" + girlID + "/profile/" +girlID + "-profile-detail.jpg", (err, info) => {
         if (err) {
           console.log(err);
         } else {
@@ -428,14 +440,14 @@ app.post("/uploadphotos/:id",upload1.any(),(req,res)=>{
       });
       //resize profile photo 
       sharp.cache(false);
-      sharp("uploads/" + girlID + "p1.jpg").rotate().resize(236, 279).jpeg({ quality: 70 }).toFile("uploads/" + girlID + "-photo1-thumb.jpg", (err, info) => {
+      sharp("uploads/" + girlID + "p1.jpg").rotate().resize(236, 279).jpeg({ quality: 70 }).toFile("uploads/" + girlID + "/profile/" + girlID + "-photo1-thumb.jpg", (err, info) => {
         if (err) {
           console.log(err);
         } else {
           // deleteFile("./uploads/" + data.id + "p1.jpg")        
         }
       })
-      sharp("uploads/" + girlID + "p1.jpg").rotate().resize(458, 542).jpeg({ quality: 90 }).toFile("uploads/" + girlID + "-photo1.jpg", (err, info) => {
+      sharp("uploads/" + girlID + "p1.jpg").rotate().resize(458, 542).jpeg({ quality: 90 }).toFile("uploads/" + girlID + "/profile/" + girlID + "-photo1.jpg", (err, info) => {
         if (err) {
           console.log(err);
         } else {
@@ -451,14 +463,14 @@ app.post("/uploadphotos/:id",upload1.any(),(req,res)=>{
       });
       //resize profile photo
       sharp.cache(false);
-      sharp("uploads/" + girlID+ "p2.jpg").rotate().resize(236, 279).jpeg({ quality: 70 }).toFile("uploads/" + girlID + "-photo2-thumb.jpg", (err, info) => {
+      sharp("uploads/" + girlID+ "p2.jpg").rotate().resize(236, 279).jpeg({ quality: 70 }).toFile("uploads/" + girlID + "/profile/" + girlID + "-photo2-thumb.jpg", (err, info) => {
         if (err) {
           console.log(err);
         } else {
           // deleteFile("./uploads/" + data.id + "p2.jpg")   
         }
       })
-      sharp("uploads/" + girlID+ "p2.jpg").rotate().resize(458, 542).jpeg({ quality: 90 }).toFile("uploads/" + girlID + "-photo2.jpg", (err, info) => {
+      sharp("uploads/" + girlID+ "p2.jpg").rotate().resize(458, 542).jpeg({ quality: 90 }).toFile("uploads/" + girlID + "/profile/" + girlID + "-photo2.jpg", (err, info) => {
         if (err) {
           console.log(err);
         } else {
@@ -475,14 +487,14 @@ app.post("/uploadphotos/:id",upload1.any(),(req,res)=>{
       //resize profile photo
       sharp.cache(false);
 
-      sharp("uploads/" + girlID + "p3.jpg").rotate().resize(236, 279).jpeg({ quality: 70 }).toFile("uploads/" + girlID + "-photo3-thumb.jpg", (err, info) => {
+      sharp("uploads/" + girlID + "p3.jpg").rotate().resize(236, 279).jpeg({ quality: 70 }).toFile("uploads/" + girlID + "/profile/" + girlID + "-photo3-thumb.jpg", (err, info) => {
         if (err) {
           console.log(err);
         } else {
           //  deleteFile("./uploads/" + data.id + "p3.jpg")        
         }
       })
-      sharp("uploads/" + girlID+ "p3.jpg").rotate().resize(458, 542).jpeg({ quality: 90 }).toFile("uploads/" + girlID + "-photo3.jpg", (err, info) => {
+      sharp("uploads/" + girlID+ "p3.jpg").rotate().resize(458, 542).jpeg({ quality: 90 }).toFile("uploads/" + girlID + "/profile/" + girlID + "-photo3.jpg", (err, info) => {
         if (err) {
           console.log(err);
         } else {
@@ -493,6 +505,7 @@ app.post("/uploadphotos/:id",upload1.any(),(req,res)=>{
   }
   res.send(req.body);
 });
+//uploading girl viedo
 app.post("/uploadvideo/:id",upload1.any(),(req,res)=>{
   let girlID = req.params.id;
   console.log(req.files[0])
@@ -509,11 +522,49 @@ app.post("/uploadvideo/:id",upload1.any(),(req,res)=>{
   crudRedis.createPreviewVideo("./video/"+ girlID+ ".mp4","./video/"+ girlID+ "-preview.mp4",4);
   res.send("video uploaded");
   });
-})
+});
+//***************Stories ********************************/
+//uploading girl stories
+app.post("/uploadstorie/:id",upload1.any(),(req,res)=>{
+let girlID = req.params.id;
+function deleteStoreies()
+{
+ files = fs.readdirSync("./uploads/" + girlID + "/storie/");
+ console.log(files)
+  if(files.length>0){
+   files.forEach((f)=>{
+    fs.unlinkSync("./uploads/" + girlID + "/storie/" + f)     
+   });
+  }
+
+}
+function returnArray() {
+var storiesPath = []
+Array.from(req.files).forEach((f)=>{
+  storiesPath.push(f.originalname);
+  fs.rename(f.path, "./uploads/" + girlID + "/storie/" + f.originalname , (err) => {
+    if (err)
+    console.log(err);
+    else
+    {
+      console.log(f.originalname)
+    console.log("Storie uploaded!");
+    }
+   });
+  });
+  return storiesPath;
+}
+deleteStoreies();
+s =returnArray();
+crudRedis.updateGirlStory(girlID,s);
+res.send("storie uploaded");  
+});
 //*************Login************/
+//getting login view
 app.get("/login/",(req,res)=>{
   res.render("login");
 });
+//verifying login credentials
 app.post("/verifylogin/",upload1.any(), (req,res)=>{
 let username = req.body.username;
 let password = req.body.password;

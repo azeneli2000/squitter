@@ -3,13 +3,16 @@
   color: #333;
 }
 .stories.snapgram .story > .item-link > .item-preview {
-  border-radius: 50%;
+  border-radius: 5%;
   padding: 2px;
   background: radial-gradient(ellipse at 70% 70%, #ee583f 8%, #d92d77 42%, #bd3381 58%);
+  min-width: 0px;
+
 }
 .stories.snapgram .story > .item-link > .item-preview img {
-  border-radius: 50%;
+  border-radius: 5%;
   border: 3px solid #fff;
+
 }
 
 .stories.snapgram .story.seen {

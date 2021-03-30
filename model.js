@@ -42,6 +42,25 @@ var newArray= jsonAll.map(item => {
   
 });
 }
+
+
+exports.updateGirlStory = function (idKey, info) {
+  client.get("all", (err, val) => {  
+    var jsonAll = JSON.parse(val);
+var newArray= jsonAll.map(item => {
+        var temp = Object.assign({}, item);
+        if (temp.id.trim() === idKey.trim()) {
+            temp.storiePath=info;
+          //  console.log("temp.id")
+     
+        }
+        return temp;
+    });
+   client.set("all", JSON.stringify(newArray));
+  
+});
+}
+
 exports.addBlog = function (key, value) {
     client.get("allblogs", (err, val) => {
         var json = JSON.parse(val);
