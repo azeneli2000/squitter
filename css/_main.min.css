@@ -3755,7 +3755,7 @@ body input:focus:required:invalid,
 body input:required:valid,
 body textarea:focus:required:invalid,
 body textarea:required:valid {
-  color: #fff;
+  color: #000;
 }
 a:active,
 a:focus,
@@ -4213,7 +4213,7 @@ section h1 {
 }
 input.form-control {
   height: 50px;
-  width: 50%;
+  width: 100%;
 }
 textarea.form-control {
   width: 100%;

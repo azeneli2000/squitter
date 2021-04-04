@@ -184,11 +184,12 @@
 				<ul class="main-menu t-upper">
 				
 					<li><a href="http://185.158.2.13">Home</a></li>
-					<li><a href="#">Models</a></li>
-					<li><a href="#">About</a></li>
+					<li><a href="#">Male</a></li>
+					<li><a href="#">Female</a></li>
+					<li><a href="#">New</a></li>
 					<li><a href="http://185.158.2.13/allvideos">Video</a></li>
 					<li><a href="http://185.158.2.13/blog">Blog</a></li>
-					<!-- <li><a href="#">Conditions</a></li> -->
+					<li><a href="#">About</a></li>
 					<!-- <li><a href="#">Contacts</a></li> -->
 			
 
@@ -275,13 +276,21 @@
 			</div>
 		</div>
 	</section>
+	<section class="section3 line">
+		<h1 class="t-upper c-red selection">New stories</h1>
+		<div class="container">
+		<div class="row">
+		<div  id="storiesNew" class="storiesWrapper" ></div>	
+	</div>	
+		</div>	</section>
 
+<!-- 
 	<section class="section3 line">
 		<div class="container">
 			<div class="row">
 				<h1 class="t-upper c-red">NEW GIRLS</h1>
 
-				<!-- start: new girls-->
+			
 				<div class="col-md-8 col-md-offset-2 col-lg-12 col-lg-offset-0">
 					<div class="row">
 
@@ -301,11 +310,11 @@
 						<%});%> 												
 					</div>
 				</div>
-				<!-- end: new girls -->
 
 			</div>
 		</div>
-	</section>
+	</section>			 -->
+
 
 	<section class="section4">
 		<div class="container">
@@ -322,8 +331,29 @@
 		const girls = <%- JSON.stringify(allGirls) %>;
 		let allGirlsStory = allStories();	
 		var search = allGirlsStory;
-	
-		function drawStories(searchResult){
+		
+		const sortedGirls =  girls.slice().sort((a, b) => b.added - a.added).reverse();
+		var sortedGirlStories = sortedStories(sortedGirls);
+		console.log(sortedGirls)
+		//draw new stories
+		function drawStoriesNew(newStories){
+		var currentSkin = getCurrentSkin();
+	    var storiesZuck = new Zuck('storiesNew', {
+		backNative: false,
+		openEffect:true,
+		previousTap: true,
+		skin: currentSkin['name'],
+		autoFullScreen: true,
+		avatars: currentSkin['params']['avatars'],
+		paginationArrows: currentSkin['params']['paginationArrows'],
+		list: currentSkin['params']['list'],
+		cubeEffect: currentSkin['params']['cubeEffect'],
+		localStorage: true,
+		stories: newStories	
+	    });	
+	}
+	    //draw all stories 
+	    function drawStories(searchResult){
 		var currentSkin = getCurrentSkin();
 	    var storiesZuck = new Zuck('stories', {
 		backNative: false,
@@ -346,11 +376,11 @@
 			if (element.trim().slice(-3)=="jpg" || element.trim().slice(-3)=="png" || element.trim().slice(-4)=="jpeg" ){
 			 console.log("jpg");		
 			//stories.update(itemImage );
-			girlStory.push(["a", "photo",3 , "/uploads/"+girl.id+"/storie/"+element, '','',false,  false, timestamp()]);
+			girlStory.push(["a", "photo",3 , "/uploads/"+girl.id+"/storie/"+element, 'http://185.158.2.13/all/'+ girl.id,'http://185.158.2.13/all/'+ girl.id,'Visit profile',  false, timestamp()]);
 		    }
 		     if (element.trim().slice(-3)=="mp4" || element.trim().slice(-3)=="MOV"){
 			 console.log("video");			
-		    girlStory.push(["a", "video",0 , "/uploads/"+girl.id+"/storie/"+element, '','',false,  false, timestamp()]);
+		    girlStory.push(["a", "video",0 , "/uploads/"+girl.id+"/storie/"+element, 'http://185.158.2.13/all/'+ girl.id,'http://185.158.2.13/all/'+ girl.id,'Visit profile',  false, timestamp()]);
 		    }
 		});
 		 return girlStory;
@@ -391,14 +421,47 @@
 		   return cityStories;
 	
 	   }
-	    document.getElementById('autoComplete').addEventListener('input',(e)=> {
+function sortedStories() {
+	let sortedStories = [];
+		   for (let i = 0; i < sortedGirls.length; i++) {
+			   console.log(sortedGirls[i])
+			let items = girlStorie(sortedGirls[i]);
+			if(i==4)
+			 break
+			sortedStories.push( Zuck.buildTimelineItem(		
+				sortedGirls[i].id,
+				"/uploads/"+ sortedGirls[i].id+"/profile/"+sortedGirls[i].id+"-profile-detail.jpg",
+				sortedGirls.name,
+				"https://ramon.codes",
+				timestamp(),
+				items
+			));
+			//	cityStories.push(girls[i]);
+			
+		   }
+		   return sortedStories;
+	
+}
+	    	
+	   document.getElementById('autoComplete').addEventListener('input',(e)=> {
 			if(e.target.value ==""){
 				document.querySelector(".selection").innerHTML = "Stories";
 				drawStories(allGirlsStory);
 			}},false);
-	    window.addEventListener('load',drawStories(allGirlsStory),false);
+	    window.addEventListener('load',drawHomePageStories,false);
 
-
+function drawHomePageStories() {
+	// console.log(sortedStoriesByDate);
+	// let firstFourStories = []
+	// for (let index = 0; index < sortedStoriesByDate.length; index++) {
+	// 	const element = sortedStoriesByDate[index];
+	// 	if(index==4)
+	// 	break
+	// 	firstFourStories.push(element)
+	// }
+	drawStories(allGirlsStory);
+	drawStoriesNew(sortedGirlStories);
+}
 //*****************************AUTOCOMPLETE***************************
 document.querySelector("#autoComplete").addEventListener("init", function (event) {
   console.log(event);
