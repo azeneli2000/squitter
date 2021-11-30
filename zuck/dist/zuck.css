@@ -522,11 +522,15 @@
 @media screen and (max-width:  640px) {
   .stories.carousel .story {
     display: block;
-    width: auto;
+    width: 100%;
+  
     margin: 0 6px;
     vertical-align: top;
   }
+
+ 
   }
+
 .stories.carousel .story:first-child {
   margin-left: 0;
 }
@@ -545,8 +549,8 @@
   display: block;
   box-sizing: border-box;
   font-size: 0;
-  max-height: 250px; 
-  height: 250px;
+  max-height: 500px; 
+  height: 350px;
  /*height: 18vw; */
   overflow: hidden;
   transition: transform 0.2s;
@@ -570,7 +574,7 @@
   text-overflow: ellipsis;
 }
 .stories.carousel .story > .item-link > .info .name {
-  font-weight: 300;
+  font-weight: 500;
 }
 .stories.carousel .story > .item-link > .info .time {
   display: none;

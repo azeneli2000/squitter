@@ -1,6 +1,7 @@
 .stories.snapgram .story > .item-link {
+  text-transform: capitalize;
   text-decoration: none;
-  color: #333;
+  color: #E7282D ;
 }
 .stories.snapgram .story > .item-link > .item-preview {
   border-radius: 5%;

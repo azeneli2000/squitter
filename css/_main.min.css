@@ -3853,7 +3853,7 @@ section h1 {
   z-index: 999;
   padding: 0 45px;
   display: inline-block;
-  margin-bottom: 40px;
+  margin-bottom: auto;
 }
 .line:after {
   width: 100%;
@@ -3898,7 +3898,7 @@ section h1 {
   color: #fff;
 }
 .chat-button-2 {
-  background-image: url(../img/chat-icon.png);
+  /* background-image: url(../img/chat-icon.png); */
   padding: 12px 70px;
 }
 .section3,
@@ -4703,6 +4703,9 @@ textarea.form-control {
   }
 }
 @media only screen and (max-width: 992px) {
+  /* #hidenLi{
+    display: inline;
+  } */
   .navbar-bottom .form-control {
     width: 65%;
   }
@@ -4723,7 +4726,9 @@ textarea.form-control {
     background-color: #e7282d;
     z-index: 9999;
     display: none;
+    list-style-type: none;
   }
+
   .header .main-menu li {
     float: none;
   }

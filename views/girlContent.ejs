@@ -58,7 +58,7 @@
 								<!-- start: gallery -->
 								<div class="col-md-12 gallery">
 									<div class="row">
-										<div class=" col-xs-6 col-sm-4 col-md-4 wow zoomIn" data-wow-delay="0"><a
+										<!-- <div class=" col-xs-6 col-sm-4 col-md-4 wow zoomIn" data-wow-delay="0"><a
 												href="/uploads/<%=json.id%>/profile/<%=json.id%>-photo1.jpg"><img
 													src="/uploads/<%=json.id%>/profile/<%=json.id%>-photo1-thumb.jpg" alt="img"></a></div>
 										<div class=" col-xs-6 col-sm-4 col-md-4 wow zoomIn" data-wow-delay=".2s"><a
@@ -66,8 +66,17 @@
 													src="/uploads/<%=json.id%>/profile/<%=json.id%>-photo2-thumb.jpg" alt="img"></a></div>
 										<div class=" col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-0 col-md-4 wow zoomIn"
 											data-wow-delay=".4s"><a href="/uploads/<%=json.id%>/profile/<%=json.id%>-photo3.jpg"><img
-													src="/uploads/<%=json.id%>/profile/<%=json.id%>-photo3-thumb.jpg" alt="img"></a></div>
+													src="/uploads/<%=json.id%>/profile/<%=json.id%>-photo3-thumb.jpg" alt="img"></a></div> -->
+													<% json.photoPath.forEach(function(e) {%>
+														<a href="/uploads/<%=json.id%>/photos/<%=e%>">
+														 <div class="col-sm-4 col-md-4 col-lg-3 wow zoomIn" data-wow-delay="0">
+															<div class="gallery-icon">
+																<img src="/uploads/<%=json.id%>/thumbs/<%=e%>" alt="img">
+														</a>
 									</div>
+														</div>
+														<%});%>		
+												</div>
 								</div>
 								<!-- end: gallery -->
 

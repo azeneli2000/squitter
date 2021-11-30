@@ -7,6 +7,8 @@ const multer = require('multer');
 const fs = require('fs');
 const bodyParser = require('body-parser');
 const uuid = require('uuid/v4');
+//  const {"v4": uuidv4} = require('uuid');
+
 const sharp = require('sharp');
 var vs = require('./videoresize');
 const { json } = require("express");
@@ -71,7 +73,7 @@ function deleteFile(path) {
   }
 }
 //**************GIRLS*********************
-//upload new girl
+//serve new girl form
 var upload1 = multer({ storage });
 app.get("/newgirl",(req,res)=>{
   client.get("all",(err,value)=>{
@@ -86,7 +88,7 @@ app.get("/newgirl",(req,res)=>{
 
   })
 })
-//modifying girl data
+//upload new girl data
 app.post('/upload', upload1.any(), (req, res) => {
 console.log("called") ;
  let id = uuid();
@@ -94,6 +96,8 @@ console.log("called") ;
   data.id = id;
   data.reviews = [];
   data.storiePath = [];
+  data.photoPath = [];
+
   data.storiePath.push(data.id + "-profile-detail.jpg");
   crudRedis.add("all", data);
 //  new directory for the girl
@@ -101,6 +105,9 @@ console.log("called") ;
     fs.mkdirSync('./uploads/'+data.id + "/profile");
     fs.mkdirSync('./uploads/'+data.id + "/video");
     fs.mkdirSync('./uploads/'+data.id + "/storie");
+    fs.mkdirSync('./uploads/'+data.id + "/photos");
+    fs.mkdirSync('./uploads/'+data.id + "/thumbs");
+
 
     console.log(req.files)
       //rename profile photo
@@ -193,8 +200,8 @@ app.get("/all/:id", (req, res) => {
     var jsonArray = JSON.parse(val).filter((obj) => { return obj.id == idG });
     var json = jsonArray[0];
     json.similarGirls = random(0, jsonall.length)
-   // console.log(json)
-    res.render("girl", { json: json });
+   console.log(json)
+    res.render("girlContentNew", { json: json });
   })
 });
 //**************BLOG******************* */
@@ -300,9 +307,88 @@ app.post('/blogmessage', upload1.any(), (req, res) => {
 app.get("/allvideos" ,(req,res)=>{
   client.get("all", (err, val) => {
     var allGirls = JSON.parse(val);
-    res.render("allvideos", { allGirls: allGirls });
+    function escortsAll(){
+		
+      let cityStories = [];
+      for (let i = 0; i < allGirls.length; i++) {
+     
+       cityStories.push(allGirls[i].id);
+       
+      }
+      return cityStories;
+  }
+  let allVideos = escortsAll();
+    res.render("videosNew", { allGirls: allVideos});
   });
-})
+});
+
+app.get("/allvideos/:city/:gender" ,(req,res)=>{
+  var city = req.params.city;
+  var gender  = req.params.gender
+
+  client.get("all", (err, val) => {
+
+    var allGirls = JSON.parse(val);
+    function escortsByCity(city){
+		
+      let cityStories = [];
+      for (let i = 0; i < allGirls.length; i++) {
+       if(allGirls[i].city.toUpperCase()== city.toUpperCase() && allGirls[i].gender.toUpperCase()== gender.toUpperCase()){				
+       cityStories.push(allGirls[i].id);
+       }
+      }
+      return cityStories;
+  }
+    let allEscortsCity= escortsByCity(city);
+    console.log(allEscortsCity)
+    res.render("videosNew", { allGirls: allEscortsCity });
+  });
+});
+
+app.get("/allvideos/:city" ,(req,res)=>{
+  var city = req.params.city;
+
+  client.get("all", (err, val) => {
+
+    var allGirls = JSON.parse(val);
+    function escortsByCity(city){
+		
+      let cityStories = [];
+      for (let i = 0; i < allGirls.length; i++) {
+       if(allGirls[i].city.toUpperCase()== city.toUpperCase()){				
+       cityStories.push(allGirls[i].id);
+       }
+      }
+      return cityStories;
+  }
+    let allEscortsCity= escortsByCity(city);
+    console.log(allEscortsCity)
+    res.render("videosNew", { allGirls: allEscortsCity });
+  });
+});
+app.get("/videos/:gender" ,(req,res)=>{
+  console.log("caalled");
+  var gender = req.params.gender;
+  
+console.log("gender : " + gender);
+  client.get("all", (err, val) => {
+
+    var allGirls = JSON.parse(val);
+    function escortsByGender(gender){
+		
+      let cityStories = [];
+      for (let i = 0; i < allGirls.length; i++) {
+       if(allGirls[i].gender.toUpperCase()== gender.toUpperCase()){				
+       cityStories.push(allGirls[i].id);
+       }
+      }
+      return cityStories;
+  }
+    let allEscortsGender= escortsByGender(gender);
+    console.log(escortsByGender)
+    res.render("videosNew", { allGirls: allEscortsGender });
+  });
+});
 //getting video with id
 app.get("/allvideos/:id", (req, res) => {
   var idB = req.params.id;
@@ -351,7 +437,7 @@ app.post("/uploadinfo/:id",upload1.any(),(req,res)=>{
   crudRedis.updateGirlInfo(girlID,info);
   res.send(req.body);
 });
-//uploading girl photos
+//uploading profile girl photo
 app.post("/uploadphotos/:id",upload1.any(),(req,res)=>{
   let girlID = req.params.id;
   for (let index = 0; index < req.files.length; index++) {
@@ -452,6 +538,63 @@ app.post("/uploadphotos/:id",upload1.any(),(req,res)=>{
   }
   res.send(req.body);
 });
+//uploading girls photos
+app.post("/uploadthumb/:id",upload1.any(),(req,res)=>{
+  let girlID = req.params.id;
+  function deletePhotos()
+  {
+   files = fs.readdirSync("./uploads/" + girlID + "/photos/");
+   console.log(files)
+    if(files.length>0){
+     files.forEach((f)=>{
+      fs.unlinkSync("./uploads/" + girlID + "/photos/" + f)
+     });
+    }
+    files = fs.readdirSync("./uploads/" + girlID + "/thumbs/");
+   console.log(files)
+    if(files.length>0){
+     files.forEach((f)=>{
+      fs.unlinkSync("./uploads/" + girlID + "/thumbs/" + f)
+     });
+    }
+  }
+  function returnArray() {
+  var photoPath = []
+  Array.from(req.files).forEach((f)=>{
+    photoPath.push(f.originalname);
+    // fs.rename(f.path, "./uploads/" + girlID + "/photos/" + f.originalname , (err) => {
+    //   if (err)
+    //   console.log(err);
+    //   else
+    //   {
+    //     console.log(f.originalname)
+    //   console.log("Photo uploaded!");
+    //   }
+    //  });
+    sharp.cache(false);
+    sharp(f.path).rotate().resize(236, 279).jpeg({ quality: 70 }).toFile("uploads/" + girlID + "/thumbs/" + f.originalname , (err, info) => {
+      if (err) {
+        console.log(err);
+      } else {
+        // deleteFile("./uploads/" + data.id + "p1.jpg")
+      }
+    })
+    sharp(f.path).rotate().resize(458, 542).jpeg({ quality: 90 }).toFile("uploads/" + girlID + "/photos/" +f.originalname, (err, info) => {
+      if (err) {
+        console.log(err);
+      } else {
+       deleteFile(f.path)
+      }
+    })
+    });
+    return photoPath;
+  }
+  deletePhotos();
+  s =returnArray();
+  crudRedis.updateGirlThumb(girlID,s);
+  res.send("photo uploaded");
+  });
+
 //uploading girl viedo
 app.post("/uploadvideo/:id",upload1.any(),(req,res)=>{
   let girlID = req.params.id;
@@ -528,6 +671,6 @@ app.get("/stories",(req,res)=>{
   res.render("prova.ejs")
 })
 //server
-app.listen(3000, () => {
+app.listen(3003, () => {
   console.log("server started on port 3000");
 });

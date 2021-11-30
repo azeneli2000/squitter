@@ -52,7 +52,7 @@
     display: block;
     box-sizing: border-box;
     height: auto;
-    width: 200px;
+    width: auto;
     background-size: cover;
     background-position: center;
     object-fit: cover;
@@ -67,6 +67,8 @@
     width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-size: large;
+    color: #E7282D;
 }
 
 .stories.carousel .story>.item-link>.info .name {

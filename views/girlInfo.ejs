@@ -1984,14 +1984,49 @@
 
 <body>
 
+<style>
+	.columnPreview {
+  float: left;
+  width: 33.33%;
+  padding: 5px;
+}
+.profilePreview{
+width:40%;
+display: block;
+margin: auto;
+}
 
+/* Clearfix (clear floats) */
+.rowPreview::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+.thumbnail{
+width: 100%;
+margin: auto;
+display: block;
+ 
+
+}
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 500px) {
+  .columnPreview {
+    width: 100%;
+  }
+.profilePreview{
+	width: 100%;
+
+}
+}
+</style>
 
 	<header class="header">
 		<div id="girlID" style="display: none;">
 			<%=json.id%>
 		</div>
 		<!-- start: top-line -->
-		<div class="top-line">
+		<!-- <div class="top-line">
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-6 col-md-4 logo-title t-center wow fadeInDown">
@@ -2000,21 +2035,25 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 		<!-- end: top-line -->
 
 		<!-- start: menu-container -->
 		<div class="menu-container">
 			<div class="container">
 				<a href="#" class="toggle-menu visible-xs visible-sm hidden-md hidden-lg"><img src="/img/menu.png"
-						alt="img"> Menu</a>
+						alt="img"> <div id="hidenLi" style="display: inline;">Squitter</div></a>				
+
 				<ul class="main-menu t-upper">
+					<li><a onclick="goToPreview();return false;" href="#">Photos</a></li>
+
 					<li><a onclick="goToInformation();return false;" href="#">Information</a></li>
-					<li><a onclick="goToImages();return false;" href="#">Photo</a></li>
+					<li><a onclick="goToImages();return false;" href="#">Profile photo</a></li>
 					<li><a onclick="goToVideo();return false;" href="#">Video</a></li>
 					<li><a onclick="goToStorie();return false;" href="#">Storie</a></li>
 
 					<li><a onclick="logout();return false;" href="#">Logout</a></li>
+
 				</ul>
 			</div>
 		</div>
@@ -2024,7 +2063,7 @@
 
 	<!-- <h1 class="c-red t-upper" style="margin-left: 2%;">Information</h1> -->
 	<!-- girl info -->
-	<div id="info" style="margin-left: 2%;display: none;">
+	<div id="info" style="overflow-x: hidden; margin-left: 2%;display: none;">
 		<form class="comment-form" id="formInfo" method="POST">
 			<div class="row">
 				<div class="col-lg-6" style="z-index: 999	;">
@@ -2110,132 +2149,124 @@
 
 				</div>
 				<div class="form-group t-left">
-					<p>About me</p>
-					<textarea style="padding-right: 5%;" class="form-control" id="about" rows="10"
+					<p> About me</p>
+					<textarea class="form-control" id="about" rows="10"
 						data-validation="required"
 						data-validation-error-msg="This field is required"> <%=json.about%> </textarea>
 				</div>
 			</div>
 			<div class="form-group t-center" style="margin-bottom: 1%;">
-				<button type="submit" class="main-button-2">Submit</button>
+				<button type="submit" class="main-button-2"><i class="fa fa-upload"></i> Submit</button>
+				<div style="height: 20px;"></div>
+
 			</div>
 		</form>
 	</div>
 
-	<!-- girl photos -->
-	<div id="photos" style="margin-top: 2%;display: none;">
+	<!-- girl profile photo -->
+	<div id="photos" style="overflow-x: hidden;margin-top: 2%;display: none;">
 		<form action="POST" id="formPhoto">
 			<div class="row">
-				<div class="col-sm-12 col-md-12 block-default profile-about t-left" style="z-index: 999	;">
-					<div class="col-sm-7 col-md-6 col-md-offset-1 col-lg-7 col-lg-offset-0 profile-img wow fadeInLeft">
-						<h3 class="c-red t-upper">Profile photo </h3>
+				<div class="form-group t-center" style="margin-bottom: 50px; ">
+					<button type="button" class="main-button-2" style=" background-color: rgb(40,37,44);" onclick="document.getElementById('profileUpload').click();"><i class="fa fa-folder-open"></i>   Choose profile photo </button>
+				</div>
+				<div class="profilePreview" >														
 						<img id="profileImage" src="/uploads/<%=json.id%>/profile/<%=json.id%>-profile-detail.jpg"
-							style="max-width: 444px;max-height: 546px; width: auto;height: auto;" alt="">
-						<div>
-							<img src="http://icons.iconarchive.com/icons/custom-icon-design/pretty-office-9/256/open-file-icon.png"
-								width="50" height="50" onclick="document.getElementById('profileUpload').click();"
-								style="cursor: pointer;">
+							style="width: 100%;height: auto; display: block;margin: auto; padding:5%" alt="">
+						<div>											
 							<input type="file" id="profileUpload" style="visibility: hidden;" />
 						</div>
-					</div>
-
-
 				</div>
-			</div>
-
-			<div class="row">
-				<div class=" col-xs-12 col-sm-4 col-md-4 col-xs-offset-2 col-sm-offset-0 col-md-offset-0">
-					<h3 class="c-red t-upper">Photo 1</h3>
-					<a href="/uploads/<%=json.id%>/profile/<%=json.id%>-photo1.jpg"><img id="photo1Image"
-							src="/uploads/<%=json.id%>/profile/<%=json.id%>-photo1-thumb.jpg"
-							style="max-width: 236px;max-height: 279px; width: auto;height: auto;" alt="img"></a>
-					<div>
-						<img src="http://icons.iconarchive.com/icons/custom-icon-design/pretty-office-9/256/open-file-icon.png"
-							width="50" height="50" onclick="document.getElementById('photo1Upload').click();"
-							style="cursor: pointer;">
-						<input type="file" id="photo1Upload" style="visibility: hidden;" />
-					</div>
-				</div>
-
-				<div class=" col-xs-12 col-sm-4 col-md-4 col-xs-offset-2 col-sm-offset-0 col-md-offset-0">
-					<h3 class="c-red t-upper">Photo 2</h3>
-					<a href="/uploads/<%=json.id%>/profile/<%=json.id%>-photo2.jpg"><img id="photo2Image"
-							src="/uploads/<%=json.id%>/profile/<%=json.id%>-photo2-thumb.jpg"
-							style="max-width: 236px;max-height: 279px; width: auto;height: auto;" alt="img"></a>
-					<div>
-						<img src="http://icons.iconarchive.com/icons/custom-icon-design/pretty-office-9/256/open-file-icon.png"
-							width="50" height="50" onclick="document.getElementById('photo2Upload').click();"
-							style="cursor: pointer;">
-						<input type="file" id="photo2Upload" style="visibility: hidden;" />
-					</div>
-				</div>
-				<div
-					class=" col-xs-12 col-sm-4 col-sm-offset-0 col-md-4 col-xs-offset-2 col-sm-offset-0 col-md-offset-0">
-					<h3 class="c-red t-upper">Photo 3</h3>
-					<a href="/uploads/<%=json.id%>/profile/<%=json.id%>-photo3.jpg">
-						<img id="photo3Image" src="/uploads/<%=json.id%>/profile/<%=json.id%>-photo3-thumb.jpg"
-							style="max-width: 236px;max-height: 279px; width: auto;height: auto;" alt="img">
-					</a>
-					<div>
-						<img src="http://icons.iconarchive.com/icons/custom-icon-design/pretty-office-9/256/open-file-icon.png"
-							width="50" height="50" onclick="document.getElementById('photo3Upload').click();"
-							style="cursor: pointer;">
-						<input type="file" id="photo3Upload" style="visibility: hidden;" />
-					</div>
-				</div>
-			</div>
-
-
-			<div class="form-group t-center" style="margin-bottom: 1%;">
-				<button type="submit" class="main-button-2">Upload photos</button>
+			</div>		
+			<div class="form-group t-center" style="margin-top: 20px;">
+				<button type="submit" class="main-button-2"><i class="fa fa-upload"></i> Upload profile photo</button>
+				<div style="height: 20px;"></div>
 			</div>
 		</form>
 	</div>
 	<!-- girl video -->
-	<div id="video" style="margin-top: 2%;display: none">
+	<div id="video" style=" overflow-x: hidden;margin-top: 2%;display: none" >
 		<form action="POST" id="formVideo">
 			<div class="row">
-
-				<div class="col-xs-12 col-sm-12 col-md-12 col-sm-offset-4 col-md-offset-4 col-xs-offset-0">
-
-					<video controls autoplay muted>
-						<source id="girlVideo" src="/video/<%=json.id%>.mp4" type='video/mp4;'>
+				<div class="form-group t-center" style="margin-bottom: 50px; ">
+					<button type="button" class="main-button-2" style=" background-color: rgb(40,37,44);" onclick="document.getElementById('videoUpload').click();"><i class="fa fa-folder-open"></i>   Choose video </button>
+				</div>
+				<!-- <div class="col-xs-12 col-sm-12 col-md-12 col-sm-offset-4 col-md-offset-4 col-xs-offset-0"> -->
+					<div class="profilePreview" >
+					<video controls autoplay muted 	style="width: 100%;height: auto; display: block;margin: auto; padding:5%" > 
+						<source id="girlVideo" src="/video/<%=json.id%>.mp4" type='video/mp4;' >
 					</video>
+					</div>
 					<div>
-						<img src="http://icons.iconarchive.com/icons/custom-icon-design/pretty-office-9/256/open-file-icon.png"
+						<!-- <img src="http://icons.iconarchive.com/icons/custom-icon-design/pretty-office-9/256/open-file-icon.png"
 							width="50" height="50" onclick="document.getElementById('videoUpload').click();"
-							style="cursor: pointer;">
+							style="cursor: pointer;"> -->
 						<input type="file" id="videoUpload" style="visibility: hidden;" />
 					</div>
-				</div>
+				<!-- </div> -->
 			</div>
 			<div class="form-group t-center">
-				<button type="submit" class="main-button-2">Upload video</button>
+				<button type="submit" class="main-button-2"><i class="fa fa-upload"></i> Upload video</button>
 			</div>
 		</form>
 	</div>
 
 	<!-- girl-storie -->
-	<div id="storie" style="margin-top: 2%;display: none">
+	<div id="storie" style="overflow-x: hidden;margin-top: 2%;display: none">
 		<form action="POST" id="formStorie">
 			<div id='previewImg'></div>
 			<div class="row">
+				<div class="form-group t-center" style="margin-bottom: 50px; ">
+					<button type="button" class="main-button-2" style=" background-color: rgb(40,37,44);" onclick="document.getElementById('storieUpload').click();"><i class="fa fa-folder-open"></i>   Choose items </button>
+				</div>
+				<!-- <div class="col-xs-12 col-sm-12 col-md-12 col-sm-offset-4 col-md-offset-4 col-xs-offset-0"> -->
+					<div class="profilePreview" >														
 
-				<div class="col-xs-12 col-sm-12 col-md-12 col-sm-offset-4 col-md-offset-4 col-xs-offset-0">
-
-					<div id="stories"></div>
+					<div id="stories" ></div>
+					<div id="existingStories"></div>
 					<div>
-						<img src="http://icons.iconarchive.com/icons/custom-icon-design/pretty-office-9/256/open-file-icon.png"
+						<!-- <img src="http://icons.iconarchive.com/icons/custom-icon-design/pretty-office-9/256/open-file-icon.png"
 							width="50" height="50" onclick="document.getElementById('storieUpload').click();"
-							style="cursor: pointer;">
+							style="cursor: pointer;"> -->
 						<input type="file" name="files[]" id="storieUpload" multiple="multiple"
 							style="visibility: hidden;" />
 					</div>
-				</div>
+					</div>
+				<!-- </div> -->
 			</div>
 			<div class="form-group t-center">
-				<button type="submit" class="main-button-2">Upload stories</button>
+				<button type="submit" class="main-button-2"><i class="fa fa-upload"></i> Upload storie</button>
+				<div style="height: 20px;"></div>
 			</div>
+		</form>
+	</div>
+	<!-- girl thumbs -->
+	<div  id="previewImages" style="margin-top: 2%;display: none">
+		<form action="POST" id="formPreview">
+			<div>
+				<div class="form-group t-center" style="margin-bottom: 20px; ">
+					<button type="button" class="main-button-2" style=" background-color: rgb(40,37,44);" onclick="document.getElementById('photo1Upload').click();"><i class="fa fa-folder-open"></i> Choose photos </button>
+				</div>
+				<!-- <img src="http://icons.iconarchive.com/icons/custom-icon-design/pretty-office-9/256/open-file-icon.png"
+					width="50" height="50" onclick="document.getElementById('photo1Upload').click();"
+					style="cursor: pointer;"> -->
+				<input type="file" id="photo1Upload" style="visibility: hidden;" multiple /> <output id="result">
+			</div>
+            <div class="rowPreview" id="previewThumb" >
+				<% json.photoPath.forEach(function(e) {%>
+
+					<div class="col-sm-4 col-md-4 col-lg-3 wow zoomIn" data-wow-delay="0">
+						<div class="gallery-icon">
+							<img src="/uploads/<%=json.id%>/photos/<%=e%>" alt="img">
+							
+						</div>
+					</div>
+					<%});%>		
+			</div>
+			<div class="form-group t-center" style="margin-bottom: 20px;">
+				<button type="submit" class="main-button-2"><i class="fa fa-upload"></i> Upload photos</button>
+			</div>
+			<div style="height: 20px;"></div>
 		</form>
 	</div>
 
@@ -2254,6 +2285,82 @@
 			$(".main-menu").slideToggle();
 			return false;
 		});
+		$("li").click(function () {
+			$(".main-menu").slideToggle();
+			$('#hidenLi').text($(this).children("a").text()) ;
+			console.log($(this).children("a").text());
+			return false;
+		});
+
+		var currentSkin = getCurrentSkin();
+			var stories = new Zuck('existingStories', {
+				backNative: false,
+				openEffect: true,
+				previousTap: true,
+				skin: currentSkin['name'],
+				autoFullScreen: true,
+				avatars: currentSkin['params']['avatars'],
+				paginationArrows: currentSkin['params']['paginationArrows'],
+				list: currentSkin['params']['list'],
+				cubeEffect: currentSkin['params']['cubeEffect'],
+				localStorage: true,
+				stories: []
+			});
+			const girl = <%- JSON.stringify(json) %>;
+
+		Array.from(girl.storiePath).forEach(element => {
+				let item = Zuck.buildTimelineItem(
+					girl.id,
+					"/uploads/<%=json.id%>/profile/<%=json.id%>-profile-detail.jpg" ,
+					girl.name,
+					"https://ramon.codes",
+					 timestamp(),
+					 [
+					  [girl.id, "photo", 3, "/uploads/<%=json.id%>/storie/" + element, "", false, timestamp()],
+
+					]
+				)
+				stories.update(item);
+
+			});
+			// for (var i = 0, f; f = files[i]; i++) {
+			// 	reader.onload = (function (theFile) {
+			// 		return function (e) {
+			// 			if (e.target.result.match("video")) {
+			// 				console.log("video");
+			// 				let item = Zuck.buildTimelineItem(
+			// 					i,
+			// 					"/uploads/<%=json.id%>/profile/<%=json.id%>-profile-detail.jpg",
+			// 					"andi",
+			// 					"https://ramon.codes",
+			// 					timestamp(),
+			// 					[
+			// 						[i, "video", 0, e.target.result, "", false, timestamp()],
+
+			// 					]
+			// 				)
+			// 				stories.update(item);
+			// 			}
+			// 			if (e.target.result.match("image")) {
+			// 				let item = Zuck.buildTimelineItem(
+			// 					i,
+			// 					"/uploads/<%=json.id%>/profile/<%=json.id%>-profile-detail.jpg",
+			// 					"andi",
+			// 					"https://ramon.codes",
+			// 					timestamp(),
+			// 					[
+			// 						[i, "photo", , e.target.result, "", false, timestamp()],
+
+			// 					]
+			// 				)
+			// 				stories.update(item);
+			// 			}
+			// 		};
+			// 	})(f);
+			// 	// Read in the image file as a data URL.
+			// 	reader.readAsDataURL(f);
+			// }
+
 	</script>
 
 	<!-- uploads script -->
@@ -2291,39 +2398,75 @@
 
 
 		//photo1
-		document.getElementById("photo1Upload").onchange = function () {
-			var readerProfile = new FileReader();
+		// document.getElementById("photo1Upload").onchange = function () {
+		// 	var readerProfile = new FileReader();
 
-			readerProfile.onload = function (e) {
-				document.getElementById("photo1Image").src = e.target.result;
-			};
-			readerProfile.readAsDataURL(this.files[0]);
-		};
-
+		// 	readerProfile.onload = function (e) {
+		// 		document.getElementById("photo1Image").src = e.target.result;
+		// 	};
+		// 	readerProfile.readAsDataURL(this.files[0]);
+		// };
+		var filesInput = document.getElementById("photo1Upload");
+        
+        filesInput.addEventListener("change", function(event){
+            
+            var files = event.target.files; //FileList object
+            var output = document.getElementById("result");
+            var htmlText = "<div class='rowPreview'>"
+            var htmlImg = ""
+		for(var i = 0; i< files.length; i++)
+            {
+                var file = files[i];
+                
+                //Only pics
+                if(!file.type.match('image'))
+                  continue;
+                
+                var picReader = new FileReader();
+                
+                picReader.addEventListener("load",function(event){
+                    
+                    var picFile = event.target;
+                    
+					
+					var img = document.getElementById("previewThumb");
+					div = document.createElement("div")
+                 div.innerHTML ="<div class='columnPreview'><img class='thumbnail' src='" + picFile.result + "'" +
+                            "title='" + picFile.name + "'/></div>";
+                    
+                    // output.insertBefore(div,null);            
+                img.appendChild(div)
+                });
+                
+                 //Read the image
+                picReader.readAsDataURL(file);
+			}
+	
+		}); 
 		//photo2
-		document.getElementById("photo2Upload").onchange = function () {
-			var readerProfile = new FileReader();
+		// document.getElementById("photo2Upload").onchange = function () {
+		// 	var readerProfile = new FileReader();
 
-			readerProfile.onload = function (e) {
-				document.getElementById("photo2Image").src = e.target.result;
-			};
-			readerProfile.readAsDataURL(this.files[0]);
-		};
+		// 	readerProfile.onload = function (e) {
+		// 		document.getElementById("photo2Image").src = e.target.result;
+		// 	};
+		// 	readerProfile.readAsDataURL(this.files[0]);
+		// };
 
-		//photo 3
-		document.getElementById("photo3Upload").onchange = function () {
-			var readerProfile = new FileReader();
+		// //photo 3
+		// document.getElementById("photo3Upload").onchange = function () {
+		// 	var readerProfile = new FileReader();
 
-			readerProfile.onload = function (e) {
-				document.getElementById("photo3Image").src = e.target.result;
-			};
-			readerProfile.readAsDataURL(this.files[0]);
-		};
+		// 	readerProfile.onload = function (e) {
+		// 		document.getElementById("photo3Image").src = e.target.result;
+		// 	};
+		// 	readerProfile.readAsDataURL(this.files[0]);
+		// };
 		//storie
-
 		document.getElementById('storieUpload').addEventListener('change', handleFileSelectStory, false);
 		function handleFileSelectStory(evt) {
 			var files = evt.target.files; // FileList object
+			document.getElementById("existingStories").innerHTML = "";
 
 			var currentSkin = getCurrentSkin();
 			var stories = new Zuck('stories', {
@@ -2348,7 +2491,7 @@
 							let item = Zuck.buildTimelineItem(
 								i,
 								"/uploads/<%=json.id%>/profile/<%=json.id%>-profile-detail.jpg",
-								"andi",
+								"new storie",
 								"https://ramon.codes",
 								timestamp(),
 								[
@@ -2362,11 +2505,11 @@
 							let item = Zuck.buildTimelineItem(
 								i,
 								"/uploads/<%=json.id%>/profile/<%=json.id%>-profile-detail.jpg",
-								"andi",
+								"new storie",
 								"https://ramon.codes",
 								timestamp(),
 								[
-									[i, "photo", , e.target.result, "", false, timestamp()],
+									[i, "photo", , e.target.result, "","", false,false, timestamp()],
 
 								]
 							)
@@ -2385,8 +2528,7 @@
 			document.getElementById("photos").style.display = "none";
 			document.getElementById("video").style.display = "none";
 			document.getElementById("storie").style.display = "none";
-
-
+			document.getElementById("previewImages").style.display = "none";
 
 		}
 		function goToImages() {
@@ -2394,6 +2536,7 @@
 			document.getElementById("photos").style.display = "block";
 			document.getElementById("video").style.display = "none"
 			document.getElementById("storie").style.display = "none";
+			document.getElementById("previewImages").style.display = "none";
 
 		}
 		function goToVideo() {
@@ -2401,10 +2544,12 @@
 			document.getElementById("photos").style.display = "none";
 			document.getElementById("video").style.display = "block"
 			document.getElementById("storie").style.display = "none";
+			document.getElementById("previewImages").style.display = "none";
+
 
 		}
 		function logout() {
-			location.assign("http://localhost:3000/login/")
+			location.assign("http://185.158.2.13/login/")
 
 		}
 		function goToStorie() {
@@ -2413,10 +2558,21 @@
 			document.getElementById("photos").style.display = "none";
 			document.getElementById("video").style.display = "none";
 			document.getElementById("storie").style.display = "block";
+			document.getElementById("previewImages").style.display = "none";
+
 
 
 
 		}
+
+		function goToPreview() {
+			document.getElementById("info").style.display = "none";
+			document.getElementById("photos").style.display = "none";
+			document.getElementById("video").style.display = "none";
+			document.getElementById("storie").style.display = "none";
+			document.getElementById("previewImages").style.display = "block";
+
+			}
 		let girlID = document.getElementById("girlID").innerHTML.trim();
 
 		//submit info
@@ -2474,9 +2630,9 @@
 			xhttp.open("POST", "http://185.158.2.13/uploadphotos/" + girlID)
 			var formData = new FormData();
 			formData.append('profile', document.getElementById('profileUpload').files[0]);
-			formData.append('photo1', document.getElementById('photo1Upload').files[0]);
-			formData.append('photo2', document.getElementById('photo2Upload').files[0]);
-			formData.append('photo3', document.getElementById('photo3Upload').files[0]);
+			// formData.append('photo1', document.getElementById('photo1Upload').files[0]);
+			// formData.append('photo2', document.getElementById('photo2Upload').files[0]);
+			// formData.append('photo3', document.getElementById('photo3Upload').files[0]);
 			//formData.append('video', document.getElementById('video').files[0]); 
 			xhttp.upload.onprogress = function (evt) {
 				if (evt.lengthComputable) {
@@ -2550,6 +2706,40 @@
 			xhttp.send(formDataStories);
 
 		}	
+	
+	//upload photos
+	document.getElementById('formPreview').onsubmit = function (event) {
+
+event.preventDefault() // prevent form from posting without JS
+
+var xhttp = new XMLHttpRequest(); // create new AJAX request
+xhttp.onreadystatechange = function () {
+	if (this.readyState == 4 && this.status == 200) {
+		// document.getElementById("status").innerHTML = 'sent'+this.responseText+ xhttp.status;
+	} else {
+		//  document.getElementById("status").innerHTML = xhttp.status ;
+	}
+}
+
+xhttp.open("POST", "http://185.158.2.13/uploadthumb/" + girlID.trim())
+
+//console.log("http://185.158.2.13/uploadstorie/" + girlID.trim())
+var formDataPhotos = new FormData();
+Array.from(document.getElementById('photo1Upload').files).forEach((f) => {
+	formDataPhotos.append('photo', f);
+});
+//console.log(document.getElementById('storieUpload').files[0])
+
+
+xhttp.upload.onprogress = function (evt) {
+	if (evt.lengthComputable) {
+		var percentComplete = parseInt((evt.loaded / evt.total) * 100);
+		console.log("Upload: " + percentComplete + "% complete")
+	}
+};
+xhttp.send(formDataPhotos);
+
+}	
 	</script>
 
 

@@ -61,6 +61,23 @@ var newArray= jsonAll.map(item => {
 });
 }
 
+exports.updateGirlThumb = function (idKey, info) {
+  client.get("all", (err, val) => {  
+    var jsonAll = JSON.parse(val);
+var newArray= jsonAll.map(item => {
+        var temp = Object.assign({}, item);
+        if (temp.id.trim() === idKey.trim()) {
+            temp.photoPath=info;
+          //  console.log("temp.id")
+     
+        }
+        return temp;
+    });
+   client.set("all", JSON.stringify(newArray));
+  
+});
+}
+
 exports.addBlog = function (key, value) {
     client.get("allblogs", (err, val) => {
         var json = JSON.parse(val);
@@ -156,7 +173,7 @@ exports.createPreviewVideo = async function  createFragmentPreview  (
         .inputOptions([`-ss ${startTimeInSeconds}`])
         .outputOptions([`-t ${fragmentDurationInSeconds}`])
         .noAudio()
-        .size("330x247")        //220x165
+        .size("458x542")        //220x165
         .output(outputPath)
         .on('end', resolve)
         .on('error', reject)
